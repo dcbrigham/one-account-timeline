@@ -177,11 +177,11 @@ body { padding: 20px 24px 40px; }
   <div class="legend-row" style="margin-top: 6px;">
     <div class="grp">
       <span class="grp-label">Content status</span>
-      <span class="chip" title="Confluence Page Properties status — pulled daily"><span class="swatch" style="background:#6b7280"></span>Not started</span>
-      <span class="chip" title="Confluence Page Properties status — pulled daily"><span class="swatch" style="background:#FBBF24"></span>In progress</span>
-      <span class="chip" title="Confluence Page Properties status — pulled daily"><span class="swatch" style="background:#3B82F6"></span>Ready</span>
-      <span class="chip" title="Confluence Page Properties status — pulled daily"><span class="swatch" style="background:#10B981"></span>Live</span>
-      <span class="chip" title="Cancelled in Confluence"><span class="swatch" style="background:#dc2626"></span>Cancelled</span>
+      <span class="chip" data-status="not-started" title="Click to filter by status"><span class="swatch" style="background:#6b7280"></span>Not started</span>
+      <span class="chip" data-status="in-progress" title="Click to filter by status"><span class="swatch" style="background:#FBBF24"></span>In progress</span>
+      <span class="chip" data-status="ready" title="Click to filter by status"><span class="swatch" style="background:#3B82F6"></span>Ready</span>
+      <span class="chip" data-status="live" title="Click to filter by status"><span class="swatch" style="background:#10B981"></span>Live</span>
+      <span class="chip" data-status="cancelled" title="Click to filter by status"><span class="swatch" style="background:#dc2626"></span>Cancelled</span>
     </div>
   </div>
 </div>
@@ -484,6 +484,7 @@ async function loadStatus() {
 const state = {
   selectedChannels: new Set(JSON.parse(localStorage.getItem('phaseB.selectedChannels') || '[]')),
   selectedMarkets: new Set(JSON.parse(localStorage.getItem('phaseB.selectedMarkets') || '[]')),
+  selectedStatuses: new Set(JSON.parse(localStorage.getItem('phaseB.selectedStatuses') || '[]')),
   zoom: localStorage.getItem('phaseB.zoom') || 'all',
   showCancelled: localStorage.getItem('phaseB.showCancelled') !== 'false', // default true
   viewStart: 0,
@@ -500,6 +501,17 @@ function setView() {
 function persist() {
   localStorage.setItem('phaseB.selectedChannels', JSON.stringify([...state.selectedChannels]));
   localStorage.setItem('phaseB.selectedMarkets', JSON.stringify([...state.selectedMarkets]));
+  localStorage.setItem('phaseB.selectedStatuses', JSON.stringify([...state.selectedStatuses]));
+}
+
+// Read a campaign element's current status from its CSS classes.
+function statusOfElement(el) {
+  if (el.classList.contains('cancelled')) return 'cancelled';
+  if (el.classList.contains('status-not-started')) return 'not-started';
+  if (el.classList.contains('status-in-progress')) return 'in-progress';
+  if (el.classList.contains('status-ready')) return 'ready';
+  if (el.classList.contains('status-live')) return 'live';
+  return null; // No tracked status (e.g. August holding band)
 }
 
 function handleChipClick(set, id) {
@@ -874,6 +886,16 @@ function applyFilters() {
     const hide = channelAny && !state.selectedChannels.has(r.dataset.channel);
     r.style.display = hide ? 'none' : '';
   });
+  // Status: filter individual markers and bars by their applied status class
+  const statusAny = state.selectedStatuses.size > 0;
+  document.querySelectorAll('.event-marker, .event-bar').forEach(el => {
+    if (!statusAny) {
+      el.style.display = '';
+      return;
+    }
+    const s = statusOfElement(el);
+    el.style.display = (s && state.selectedStatuses.has(s)) ? '' : 'none';
+  });
   // Channel chips visual state
   document.querySelectorAll('.chip[data-channel]').forEach(c => {
     if (!channelAny) {
@@ -900,6 +922,19 @@ function applyFilters() {
       c.classList.remove('selected');
     }
   });
+  // Status chips visual state
+  document.querySelectorAll('.chip[data-status]').forEach(c => {
+    if (!statusAny) {
+      c.classList.remove('off');
+      c.classList.remove('selected');
+    } else if (state.selectedStatuses.has(c.dataset.status)) {
+      c.classList.remove('off');
+      c.classList.add('selected');
+    } else {
+      c.classList.add('off');
+      c.classList.remove('selected');
+    }
+  });
 }
 
 // ---------- Filter handlers ----------
@@ -919,9 +954,18 @@ document.querySelectorAll('.chip[data-market]').forEach(chip => {
   });
 });
 
+document.querySelectorAll('.chip[data-status]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    handleChipClick(state.selectedStatuses, chip.dataset.status);
+    persist();
+    applyFilters();
+  });
+});
+
 document.getElementById('reset-btn').addEventListener('click', () => {
   state.selectedChannels.clear();
   state.selectedMarkets.clear();
+  state.selectedStatuses.clear();
   state.zoom = 'all';
   state.showCancelled = true;
   localStorage.setItem('phaseB.zoom', 'all');
