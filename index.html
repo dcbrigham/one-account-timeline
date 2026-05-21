@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>One Account — Campaign Timeline (Phase A + B + C)</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #ffffff; color: #111827; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.4; }
+body { padding: 20px 24px 40px; }
+
+/* Header */
+.header { margin-bottom: 16px; }
+.header h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.header .sub { font-size: 12px; color: #6b7280; }
+.header .legend-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; padding: 10px 12px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; }
+.legend-row .grp { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.legend-row .grp-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: #6b7280; font-weight: 600; margin-right: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: #374151; padding: 2px 7px; border-radius: 999px; background: #fff; border: 1px solid #e5e7eb; cursor: pointer; user-select: none; transition: opacity 0.15s, background 0.15s, border-color 0.15s; }
+.chip .swatch { width: 9px; height: 9px; border-radius: 2px; }
+.chip.off { opacity: 0.35; background: #f3f4f6; }
+.chip.selected { background: #111827; color: #fff; border-color: #111827; font-weight: 600; }
+
+/* Filter bar */
+.filters { display: flex; gap: 20px; flex-wrap: wrap; margin: 12px 0 16px; padding: 10px 12px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; align-items: center; }
+.filter-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: #6b7280; font-weight: 600; margin-right: 4px; }
+.zoom-btns { display: flex; gap: 4px; }
+.zoom-btn { font-size: 11px; padding: 4px 10px; border: 1px solid #d1d5db; background: #fff; border-radius: 4px; cursor: pointer; color: #374151; font-weight: 500; }
+.zoom-btn:hover { background: #f3f4f6; }
+.zoom-btn.active { background: #111827; color: #fff; border-color: #111827; }
+.reset-btn { font-size: 11px; padding: 4px 10px; border: 1px solid #d1d5db; background: #fff; border-radius: 4px; cursor: pointer; color: #6b7280; margin-left: auto; }
+.reset-btn:hover { background: #f3f4f6; color: #111827; }
+
+/* Chart */
+.chart-wrap { border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; background: #fff; }
+.chart-scroll { overflow-x: auto; }
+.chart { position: relative; }
+.chart.zoom-all { min-width: 3000px; }
+.chart.zoom-a { min-width: 1400px; }
+.chart.zoom-m1 { min-width: 100%; }
+.chart.zoom-m2 { min-width: 1200px; }
+.chart.zoom-m3 { min-width: 100%; }
+.chart.zoom-c { min-width: 1400px; }
+
+/* Time axis */
+.axis { display: grid; grid-template-columns: 160px 1fr; height: 56px; border-bottom: 1px solid #e5e7eb; background: #f9fafb; }
+.axis-corner { border-right: 1px solid #e5e7eb; }
+.axis-track { position: relative; }
+.movement-band { position: absolute; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 11px; font-weight: 600; color: #4b5563; border-right: 1px dashed #d1d5db; padding: 0 8px; text-align: center; line-height: 1.2; }
+.movement-band:last-child { border-right: none; }
+.movement-band .m-name { color: #111827; }
+.movement-band .m-dates { font-size: 10px; color: #6b7280; font-weight: 400; margin-top: 2px; }
+.month-ticks { position: absolute; bottom: 0; left: 0; right: 0; display: flex; pointer-events: none; }
+.month-tick { font-size: 10px; color: #9ca3af; padding: 0 4px; border-left: 1px solid #e5e7eb; height: 12px; line-height: 12px; }
+
+/* Market row */
+.market-block { border-bottom: 1px solid #e5e7eb; }
+.market-block:last-child { border-bottom: none; }
+.market-header { display: grid; grid-template-columns: 160px 1fr; background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+.market-header .m-label { padding: 8px 12px; border-right: 1px solid #e5e7eb; }
+.market-header .m-name { font-weight: 600; font-size: 13px; color: #111827; }
+.market-header .m-meta { font-size: 11px; color: #6b7280; margin-top: 1px; }
+.market-header .m-notes { padding: 8px 12px; font-size: 11px; color: #6b7280; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.market-header .m-notes .tag { font-size: 10px; padding: 1px 6px; border-radius: 3px; background: #fff; border: 1px solid #e5e7eb; color: #6b7280; }
+.market-header .m-notes .tag.warn { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
+
+.channel-row { display: grid; grid-template-columns: 160px 1fr; min-height: 28px; border-bottom: 1px solid #f3f4f6; }
+.channel-row:last-child { border-bottom: none; }
+.channel-label { padding: 6px 12px; border-right: 1px solid #e5e7eb; font-size: 12px; color: #374151; display: flex; align-items: center; gap: 8px; background: #fff; }
+.channel-label .swatch { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.channel-track { position: relative; height: 28px; background: #fff; }
+.channel-track .band-a { position: absolute; top: 0; bottom: 0; background: rgba(16, 185, 129, 0.04); }
+.channel-track .band-m1 { position: absolute; top: 0; bottom: 0; background: rgba(79, 70, 229, 0.03); }
+.channel-track .band-m2 { position: absolute; top: 0; bottom: 0; background: rgba(0, 0, 0, 0.015); }
+.channel-track .band-m3 { position: absolute; top: 0; bottom: 0; background: rgba(220, 38, 38, 0.04); }
+.channel-track .band-c { position: absolute; top: 0; bottom: 0; background: rgba(124, 58, 237, 0.04); }
+.channel-track .august-overlay { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(45deg, rgba(0,0,0,0.025), rgba(0,0,0,0.025) 6px, rgba(0,0,0,0.07) 6px, rgba(0,0,0,0.07) 12px); cursor: help; }
+.channel-track .august-overlay:hover { background: repeating-linear-gradient(45deg, rgba(0,0,0,0.04), rgba(0,0,0,0.04) 6px, rgba(0,0,0,0.1) 6px, rgba(0,0,0,0.1) 12px); }
+
+/* Campaign elements */
+.event-marker { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.15); cursor: pointer; transition: transform 0.1s; }
+.event-marker.cancelled { opacity: 0.4; box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.45); }
+.event-marker.cancelled::after { content: ''; position: absolute; left: -3px; right: -3px; top: 50%; height: 1.5px; background: #dc2626; transform: rotate(-30deg); transform-origin: center; pointer-events: none; }
+.event-bar.cancelled, .event-bar.cancelled .seg { opacity: 0.35 !important; background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(220,38,38,0.35) 4px, rgba(220,38,38,0.35) 8px) !important; }
+.event-marker:hover { transform: translate(-50%, -50%) scale(1.4); z-index: 10; }
+.event-marker.diamond { border-radius: 2px; transform: translate(-50%, -50%) rotate(45deg); width: 10px; height: 10px; }
+.event-marker.diamond:hover { transform: translate(-50%, -50%) rotate(45deg) scale(1.4); }
+.event-bar { position: absolute; top: 50%; transform: translateY(-50%); height: 14px; border-radius: 3px; cursor: pointer; transition: filter 0.1s; opacity: 0.85; }
+.event-bar:hover { filter: brightness(0.92); opacity: 1; }
+.event-bar .seg { position: absolute; top: 0; bottom: 0; }
+.event-bar .seg-divider { position: absolute; top: -2px; bottom: -2px; width: 1px; background: rgba(255,255,255,0.7); }
+
+/* Status indicator — coloured ring around markers, top stripe on bars */
+.event-marker.status-not-started { box-shadow: 0 0 0 1px rgba(0,0,0,0.15); opacity: 0.55; }
+.event-marker.status-in-progress { box-shadow: 0 0 0 2px #FBBF24; }
+.event-marker.status-ready { box-shadow: 0 0 0 2px #3B82F6; }
+.event-marker.status-live { box-shadow: 0 0 0 2px #10B981; }
+.event-bar.status-not-started { opacity: 0.45; }
+.event-bar.status-in-progress { border-top: 2px solid #FBBF24; border-bottom: 2px solid #FBBF24; }
+.event-bar.status-ready { border-top: 2px solid #3B82F6; border-bottom: 2px solid #3B82F6; }
+.event-bar.status-live { border-top: 2px solid #10B981; border-bottom: 2px solid #10B981; }
+.has-link { cursor: pointer; }
+.has-link::before { content: ''; position: absolute; inset: -2px; border-radius: inherit; }
+
+/* Status pill in tooltip */
+.tt-status { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; margin-bottom: 4px; }
+.tt-status.not-started { background: #6b7280; color: #fff; }
+.tt-status.in-progress { background: #FBBF24; color: #78350F; }
+.tt-status.ready { background: #3B82F6; color: #fff; }
+.tt-status.live { background: #10B981; color: #fff; }
+.tt-status.cancelled { background: #dc2626; color: #fff; }
+
+/* Sync status banner */
+.sync-banner { display: flex; align-items: center; gap: 10px; padding: 6px 12px; margin-bottom: 8px; font-size: 11px; border-radius: 4px; background: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb; }
+.sync-banner.error { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+.sync-banner .dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; }
+.sync-banner.error .dot { background: #dc2626; }
+.refresh-btn { font-size: 11px; padding: 4px 10px; border: 1px solid #d1d5db; background: #fff; border-radius: 4px; cursor: pointer; color: #374151; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+.refresh-btn:hover { background: #f3f4f6; border-color: #9ca3af; }
+
+/* Tooltip */
+.tooltip { position: fixed; z-index: 1000; background: #111827; color: #f9fafb; font-size: 12px; padding: 8px 10px; border-radius: 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); pointer-events: none; max-width: 280px; opacity: 0; transition: opacity 0.1s; line-height: 1.4; }
+.tooltip.show { opacity: 1; }
+.tooltip .tt-title { font-weight: 600; margin-bottom: 4px; color: #fff; }
+.tooltip .tt-meta { font-size: 11px; color: #9ca3af; margin-bottom: 4px; }
+.tooltip .tt-detail { font-size: 11px; color: #e5e7eb; }
+.tooltip .tt-cohort { font-size: 11px; color: #fbbf24; margin-top: 4px; }
+
+/* Program-wide row */
+.program-block { background: #f9fafb; border-bottom: 2px solid #e5e7eb; }
+.program-block .market-header { background: #f3f4f6; }
+.program-block .market-header .m-name { font-size: 12px; color: #4b5563; text-transform: uppercase; letter-spacing: 0.04em; }
+.program-block .channel-label { background: #f9fafb; }
+.program-block .channel-track { background: #f9fafb; }
+
+/* Footer */
+.footer { margin-top: 16px; padding: 12px 14px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 11px; color: #6b7280; }
+.footer strong { color: #111827; }
+.footer .footnote { margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>One Account — Campaign Timeline (Phase A + B + C)</h1>
+  <div class="sub">Window: 13 July 2026 (Pulse 1) → 31 March 2027 (Phase C end). Phase A is pre-migration awareness; Phase B is the migration window itself; Phase C is post-cutoff recovery. Hover any element for detail. Click chips to filter — click again to remove. With nothing selected, everything is shown.</div>
+
+  <div class="legend-row">
+    <div class="grp">
+      <span class="grp-label">Channels</span>
+      <span class="chip" data-channel="push"><span class="swatch" style="background:#4F46E5"></span>Push notification</span>
+      <span class="chip" data-channel="email"><span class="swatch" style="background:#0EA5E9"></span>Email (Braze)</span>
+      <span class="chip" data-channel="inapp"><span class="swatch" style="background:#10B981"></span>In-app banner</span>
+      <span class="chip" data-channel="promocard"><span class="swatch" style="background:#F59E0B"></span>Promocard</span>
+      <span class="chip" data-channel="broadcast"><span class="swatch" style="background:#EC4899"></span>Connect broadcast</span>
+      <span class="chip" data-channel="linkedin"><span class="swatch" style="background:#1E40AF"></span>LinkedIn</span>
+      <span class="chip" data-channel="appstore"><span class="swatch" style="background:#6B7280"></span>App store copy</span>
+      <span class="chip" data-channel="helpcentre"><span class="swatch" style="background:#7C3AED"></span>Help centre / FAQ</span>
+    </div>
+  </div>
+
+  <div class="legend-row" style="margin-top: 6px;">
+    <div class="grp">
+      <span class="grp-label">Markets</span>
+      <span class="chip" data-market="NL">NL</span>
+      <span class="chip" data-market="DE">DE</span>
+      <span class="chip" data-market="BE">BE</span>
+      <span class="chip" data-market="GB">GB</span>
+      <span class="chip" data-market="IE">IE</span>
+      <span class="chip" data-market="FR">FR (C-O)</span>
+      <span class="chip" data-market="IT">IT (C-O)</span>
+    </div>
+  </div>
+
+  <div class="legend-row" style="margin-top: 6px;">
+    <div class="grp">
+      <span class="grp-label">Content status</span>
+      <span class="chip" title="Confluence Page Properties status — pulled daily"><span class="swatch" style="background:#6b7280"></span>Not started</span>
+      <span class="chip" title="Confluence Page Properties status — pulled daily"><span class="swatch" style="background:#FBBF24"></span>In progress</span>
+      <span class="chip" title="Confluence Page Properties status — pulled daily"><span class="swatch" style="background:#3B82F6"></span>Ready</span>
+      <span class="chip" title="Confluence Page Properties status — pulled daily"><span class="swatch" style="background:#10B981"></span>Live</span>
+      <span class="chip" title="Cancelled in Confluence"><span class="swatch" style="background:#dc2626"></span>Cancelled</span>
+    </div>
+  </div>
+</div>
+
+<div class="filters">
+  <span class="filter-label">Zoom</span>
+  <div class="zoom-btns">
+    <button class="zoom-btn active" data-zoom="all">Full window</button>
+    <button class="zoom-btn" data-zoom="a">Phase A — Awareness</button>
+    <button class="zoom-btn" data-zoom="m1">B/M1 — Launch</button>
+    <button class="zoom-btn" data-zoom="m2">B/M2 — Active</button>
+    <button class="zoom-btn" data-zoom="m3">B/M3 — Escalation</button>
+    <button class="zoom-btn" data-zoom="c">Phase C — Recovery</button>
+  </div>
+  <button class="reset-btn" id="cancelled-toggle">Hide cancelled</button>
+  <button class="reset-btn" id="reset-btn">Reset filters</button>
+</div>
+
+<div class="sync-banner" id="sync-banner">
+  <span class="dot"></span>
+  <span id="sync-message">Loading status from Confluence…</span>
+  <span style="margin-left: auto; display: flex; gap: 6px;">
+    <button class="refresh-btn" id="refresh-btn" title="Open the GitHub Actions workflow to refresh status now">↻ Refresh now</button>
+    <button class="refresh-btn" id="reload-btn" title="Reload the page to pick up the latest deployed status.json">⟳ Reload page</button>
+  </span>
+</div>
+
+<div class="chart-wrap">
+  <div class="chart-scroll" id="chart-scroll">
+    <div class="chart" id="chart"></div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Reading the chart.</strong>
+  Each market row shows the campaign cadence per channel. Circles are discrete moments (a push send, an email send, a broadcast). Bars are continuous (in-app banner, Promocard, help centre) — segmented to show how the content pack changes between phases and movements. Diamonds mark cohort waves in Movement 1 (10% / +15% / +25% / +25% / +25% over the first 14 days). The diagonal-striped band is the August dead zone — no new comms ship, but the in-app banner stays live with the "Coming 30 September" holding state.
+  <div class="footnote"><strong>Phase A scope.</strong> Phase A uses only push, email, and in-app banner (per v5 doc). No Promocard, Connect broadcast, LinkedIn, or app store presence in Phase A. Pulse 1 (~15 Jul) lands before HCPs check out for August; Pulse 2 (~3 Sep) is the post-holiday reintroduction with deadline foreshadowing.</div>
+  <div class="footnote"><strong>Movement 3 note.</strong> Movement 3 messaging carries both consequence framing ("you'll lose access if you don't migrate") and recovery information ("here's what creating a new account will look like"). This seeds Phase C so the cutoff isn't a surprise.</div>
+  <div class="footnote"><strong>Phase C scope.</strong> Phase C is CS-led and reactive — no scheduled push, email, broadcast, or Promocard. The active surfaces are the in-app "locked-out" message (visible to users who attempt to log in with old credentials) and the help-centre article / public FAQ (live throughout Phase B as a passive seed, promoted in M3, featured in C). Push/email/Promocard/broadcast lanes are intentionally empty in Phase C.</div>
+  <div class="footnote"><strong>Cancelled campaigns.</strong> Campaigns marked as cancelled appear muted with a red strikethrough (markers) or hashed pattern (bars). The tooltip surfaces the cancellation reason. Toggle "Hide cancelled" in the filter bar to remove them from view entirely. Currently shown: 1 demo cancellation (BE M1 broadcast).</div>
+  <div class="footnote"><strong>Placeholder dates.</strong> Pulse 1 (15 Jul) and Pulse 2 (3 Sep) are working dates; the Dec 31 cutoff is a working assumption pending Calvin sign-off. Phase C end (31 Mar 2027) covers Q1 retro window — adjust if your wrap-up timeline differs.</div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ---------- Data ----------
+const START = new Date('2026-07-13'); // Monday — Phase A Pulse 1 ships ~15 Jul
+const END = new Date('2027-03-31');
+const TOTAL_DAYS = Math.round((END - START) / 86400000); // 261
+const LAUNCH_DAY = 79;  // 30 September 2026 — Phase B Movement 1 begins
+const CUTOFF_DAY = 171; // 31 December 2026 — Phase B ends, Phase C begins
+const AUGUST_START = 19; // 1 Aug
+const AUGUST_END = 49;   // 31 Aug
+
+function dayOf(date) { return Math.round((new Date(date) - START) / 86400000); }
+function pct(day) {
+  const span = state.viewEnd - state.viewStart;
+  return ((day - state.viewStart) / span) * 100;
+}
+function inView(day) {
+  return day >= state.viewStart && day <= state.viewEnd;
+}
+function clipDay(day) {
+  return Math.max(state.viewStart, Math.min(state.viewEnd, day));
+}
+function fmtDate(day) {
+  const d = new Date(START.getTime() + day * 86400000);
+  return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+}
+
+const movements = [
+  { id: 'a',  name: 'Phase A — Pre-Migration Awareness',      startDay: 0,   endDay: 78,  color: 'rgba(16,185,129,0.07)' },
+  { id: 'm1', name: 'Phase B/M1 — Launch & Cohort Expansion', startDay: 79,  endDay: 92,  color: 'rgba(79,70,229,0.08)' },
+  { id: 'm2', name: 'Phase B/M2 — Active Campaign',           startDay: 93,  endDay: 140, color: 'rgba(0,0,0,0.03)' },
+  { id: 'm3', name: 'Phase B/M3 — Escalation',                startDay: 141, endDay: 171, color: 'rgba(220,38,38,0.07)' },
+  { id: 'c',  name: 'Phase C — Post-Cutoff Recovery',         startDay: 172, endDay: 261, color: 'rgba(124,58,237,0.07)' }
+];
+
+const markets = [
+  { id: 'NL', name: 'Netherlands', users: '~383K', share: '53%', notes: [{ text: 'Connect broadcast central', cls: '' }, { text: 'Largest production load', cls: 'warn' }] },
+  { id: 'DE', name: 'Germany', users: '~176K', share: '24%', notes: [{ text: 'DE T&C legal gating', cls: 'warn' }] },
+  { id: 'BE', name: 'Belgium', users: '~75K', share: '10%', notes: [{ text: 'NL + FR dual-language', cls: '' }] },
+  { id: 'GB', name: 'Great Britain', users: '~39K', share: '5%', notes: [{ text: 'English only', cls: '' }] },
+  { id: 'IE', name: 'Ireland', users: '~25K', share: '3%', notes: [{ text: 'English only', cls: '' }] },
+  { id: 'FR', name: 'France (Connect-only)', users: '~18K', share: '3%', notes: [{ text: 'Minority within FR', cls: '' }] },
+  { id: 'IT', name: 'Italy (Connect-only)', users: '~9K', share: '1%', notes: [{ text: 'Minority within IT', cls: '' }] }
+];
+
+const channels = [
+  { id: 'push', name: 'Push notification', color: '#4F46E5' },
+  { id: 'email', name: 'Email (Braze)', color: '#0EA5E9' },
+  { id: 'inapp', name: 'In-app banner', color: '#10B981' },
+  { id: 'promocard', name: 'Promocard', color: '#F59E0B' },
+  { id: 'broadcast', name: 'Connect broadcast', color: '#EC4899' }
+];
+
+const programChannels = [
+  { id: 'linkedin', name: 'LinkedIn (program-wide)', color: '#1E40AF' },
+  { id: 'appstore', name: 'App store copy (program-wide)', color: '#6B7280' },
+  { id: 'helpcentre', name: 'Help centre / FAQ (program-wide)', color: '#7C3AED' }
+];
+
+// Push/email event template — Phase A (Pulse 1 + Pulse 2) and Phase B (Movements 1–3)
+const discreteEvents = {
+  a: [
+    { day: 2, label: 'Pulse 1 — Pre-holiday awareness', cohort: 'All in-scope users', purpose: 'Informative only — no action possible yet. "Your app is getting a more secure login on 30 September." Tone: forward-looking, low-pressure. Lands before HCPs check out for August.' },
+    { day: 52, label: 'Pulse 2 — Post-holiday reminder', cohort: 'All in-scope users', purpose: 'Reintroduces the change after August. Foreshadows the deadline. "Welcome back — starting 30 September you\'ll be asked to set up your new login. You\'ll have until [end-of-quarter date] to complete it."' }
+  ],
+  m1: [
+    { day: 79, label: 'Day 1 wave (10%)', cohort: '10% random cohort', purpose: 'Launch — first wave. Daily monitoring active. Pause triggers armed.', wave: true },
+    { day: 82, label: 'Day 3–4 wave (+15%)', cohort: '+15% → 25% total', purpose: 'Cohort expansion. Validate day-1 signals held.', wave: true },
+    { day: 86, label: 'Day 7 wave (+25%)', cohort: '+25% → 50% total', purpose: 'Confirm scaling. Test A/B winners from day-1.', wave: true },
+    { day: 89, label: 'Day 10 wave (+25%)', cohort: '+25% → 75% total', purpose: 'Continued expansion.', wave: true },
+    { day: 92, label: 'Day 14 wave (+25%)', cohort: '+25% → 100% coverage', purpose: 'Full proactive coverage reached.', wave: true }
+  ],
+  m2: [
+    { day: 100, label: 'Active campaign #1', cohort: 'Non-converters', purpose: 'Helpful tone. Deadline-aware but not urgent. A/B variants per market.' },
+    { day: 114, label: 'Active campaign #2', cohort: 'Non-converters', purpose: 'Repeated touch. Use Movement 1 winning variants.' },
+    { day: 128, label: 'Active campaign #3', cohort: 'Non-converters', purpose: 'Final M2 push before escalation begins.' }
+  ],
+  m3: [
+    { day: 141, label: '4-week warning', cohort: 'Non-migrators', purpose: 'Open escalation. Seeds consequence + recovery: "If you don\'t migrate by [date], you\'ll need to create a new account." First mention of Phase C recovery path.' },
+    { day: 155, label: '2-week warning', cohort: 'Non-migrators', purpose: 'Urgency rises. Reiterate consequence and recovery in plain language.' },
+    { day: 162, label: '1-week warning', cohort: 'Non-migrators', purpose: 'Last realistic action window. Legal sign-off per market on framing.' },
+    { day: 168, label: 'Final 48-hour push', cohort: 'Non-migrators', purpose: 'Last chance. Daily cadence acceptable in final 2 days. Recovery FAQ surfaced.' }
+  ]
+};
+
+// Continuous bar template (in-app banner has Phase A segments; Promocard is Phase B only)
+const continuousBars = {
+  inapp: [
+    { startDay: 2,   endDay: 18,  label: 'Phase A — Pulse 1 banner', movement: 'A',  purpose: 'Pre-holiday awareness banner. Persistent surface. Reads as "A change is coming on 30 September." Includes the "Coming 30 September" holding state for users who try to act early.' },
+    { startDay: 19,  endDay: 51,  label: 'August holding state', movement: 'A', purpose: 'August non-working month. No new active push/email comms, but the banner stays live with "Coming 30 September" content so users who open Connect in August still see it.' },
+    { startDay: 52,  endDay: 78,  label: 'Phase A — Pulse 2 banner', movement: 'A',  purpose: 'Post-holiday reminder banner. Foreshadows the deadline. "Starting 30 September you\'ll be asked to set up your new login."' },
+    { startDay: 79,  endDay: 92,  label: 'M1 content pack', movement: 'M1', purpose: 'Welcoming, reassuring. "Set up your secure login."' },
+    { startDay: 93,  endDay: 140, label: 'M2 content pack', movement: 'M2', purpose: 'Helpful, deadline-aware. Includes deadline date.' },
+    { startDay: 141, endDay: 171, label: 'M3 content pack', movement: 'M3', purpose: 'Direct. Consequence framing + recovery path. Final-week countdown.' },
+    { startDay: 172, endDay: 261, label: 'Phase C — Locked-out message', movement: 'C', purpose: 'Persistent in-app message for any user who attempts to log in with old credentials after cutoff. Explains the account has closed, links to the help-centre article, and points to the new sign-up flow. Reactive only — not pushed to anyone.' }
+  ],
+  promocard: [
+    { startDay: 79,  endDay: 92,  label: 'M1 content pack', movement: 'M1', purpose: 'Welcoming, reassuring. "Set up your secure login."' },
+    { startDay: 93,  endDay: 140, label: 'M2 content pack', movement: 'M2', purpose: 'Helpful, deadline-aware. Includes deadline date.' },
+    { startDay: 141, endDay: 171, label: 'M3 content pack', movement: 'M3', purpose: 'Direct. Consequence framing + recovery path. Final-week countdown.' }
+  ]
+};
+
+// Connect broadcast — primarily NL
+const broadcastEvents = {
+  NL: [
+    { day: 79,  label: 'Launch broadcast', cohort: 'All NL Connect-only', purpose: 'Day 1 hero broadcast. Highest-reach NL surface. A/B subject.' },
+    { day: 128, label: 'Mid-campaign reminder', cohort: 'NL non-converters', purpose: 'M2 nudge via Connect broadcast.' },
+    { day: 162, label: 'Final reminder broadcast', cohort: 'NL non-migrators', purpose: 'M3 escalation moment. Pairs with 1-week warning.' }
+  ],
+  // Others get optional treatment — show as muted single broadcast
+  DE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All DE Connect-only', purpose: 'Optional under Model C. Decision pending DE Connect ops.' }],
+  BE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All BE Connect-only', purpose: 'Optional. Dual-language consideration if used.', status: 'cancelled', cancellationReason: 'Demo cancellation — BE team decided against broadcast in M1 to test the cancelled state visual. Replace with real reason when actually cancelled.' }],
+  GB: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All GB Connect-only', purpose: 'Optional under Model C.' }],
+  IE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All IE Connect-only', purpose: 'Optional under Model C.' }],
+  FR: [],
+  IT: []
+};
+
+const programEvents = {
+  linkedin: [
+    { day: 79, label: 'LinkedIn launch post', cohort: 'Public', purpose: 'One-off program-level announcement. Cross-market. Drafted by program comms lead. Phase B only — no Phase A LinkedIn presence per v5 doc.' }
+  ],
+  appstore: [
+    { day: 79, label: 'App store copy update', cohort: 'Anyone discovering Connect', purpose: 'Updated once at launch. Mentions secure login. Not hero. Persists through window.' }
+  ]
+};
+
+// ---------- Confluence integration ----------
+// CONFIGURE: Update this URL after the GitHub repo is created.
+// Format: https://github.com/<org>/<repo>/actions/workflows/sync-confluence-status.yml
+const REFRESH_WORKFLOW_URL = 'https://github.com/REPLACE_ME/one-account-timeline/actions/workflows/sync-confluence-status.yml';
+
+// Folder page for the Phase C HelpCentre — clicked from the program-wide help centre row.
+const HELP_CENTRE_FOLDER_URL = 'https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971940394';
+
+// Loaded from status.json at boot. Shape: { generatedAt, pages: { "A-Push-NL": { url, rollup, statuses } } }
+let confluenceStatus = { pages: {} };
+
+const STATUS_RANK = { 'Not started': 0, 'In progress': 1, 'Ready': 2, 'Live': 3 };
+
+function movementFromDay(day) {
+  if (day <= 78) return 'A';
+  if (day <= 92) return 'M1';
+  if (day <= 140) return 'M2';
+  if (day <= 171) return 'M3';
+  return 'C';
+}
+
+function normalizeMarket(marketId, channelId, movement) {
+  // Broadcast in M1 has separate GB and IE pages; everywhere else GB/IE merge into UK.
+  if (channelId === 'broadcast' && movement === 'M1') return marketId;
+  if (marketId === 'GB' || marketId === 'IE') return 'UK';
+  return marketId;
+}
+
+function pageKeyFor(channelId, movement, marketId) {
+  // Program-wide channels
+  if (channelId === 'linkedin') return 'Program-LinkedIn-Launch';
+  if (channelId === 'appstore') return 'Program-AppStore';
+  if (channelId === 'helpcentre') {
+    // Help centre is a per-market Phase C asset. Program-wide row aggregates all markets.
+    return marketId && movement === 'C' ? `C-HelpCentre-${normalizeMarket(marketId, channelId, movement)}` : null;
+  }
+  const channelName = { push: 'Push', email: 'Email', inapp: 'InApp', promocard: 'Promocard', broadcast: 'Broadcast' }[channelId];
+  if (!channelName) return null;
+  const m = normalizeMarket(marketId, channelId, movement);
+  if (movement === 'A') return `A-${channelName}-${m}`;
+  if (movement === 'C') return channelName === 'InApp' ? `C-InApp-${m}` : null;
+  return `B-${movement}-${channelName}-${m}`; // M1, M2, M3
+}
+
+function statusToClass(rollup) {
+  return 'status-' + String(rollup || 'Not started').toLowerCase().replace(/\s+/g, '-');
+}
+
+// Aggregate the weakest status across multiple page keys (used for the help-centre program row).
+function aggregateRollup(keys) {
+  const statuses = keys
+    .map(k => confluenceStatus.pages?.[k]?.rollup)
+    .filter(Boolean);
+  if (!statuses.length) return null;
+  if (statuses.includes('Cancelled')) return 'Cancelled';
+  let min = null, minRank = Infinity;
+  for (const s of statuses) {
+    const r = STATUS_RANK[s];
+    if (r === undefined) continue;
+    if (r < minRank) { minRank = r; min = s; }
+  }
+  return min;
+}
+
+// Apply status + click-to-open to a rendered element. Pass cancelledOverride=true
+// when the campaign is cancelled from any source (Confluence rollup OR hardcoded
+// demo data) — that suppresses the status colour ring/border so cancelled visuals win.
+function enhance(el, pageKey, tooltipData, cancelledOverride = false) {
+  if (!pageKey) return;
+  const page = confluenceStatus.pages?.[pageKey];
+  if (!page) return;
+  const isCancelled = cancelledOverride || page.rollup === 'Cancelled';
+  if (!isCancelled) {
+    el.classList.add(statusToClass(page.rollup));
+  }
+  el.classList.add('has-link');
+  el.dataset.confluenceUrl = page.url;
+  el.dataset.pageKey = pageKey;
+  if (tooltipData) {
+    tooltipData.status = isCancelled ? 'Cancelled' : page.rollup;
+    tooltipData.languages = page.statuses || [];
+    tooltipData.confluenceUrl = page.url;
+    el.dataset.tooltip = JSON.stringify(tooltipData);
+  }
+}
+
+// Apply an aggregated status to an element that maps to multiple pages (the help-centre row).
+function enhanceAggregate(el, pageKeys, fallbackUrl, tooltipData) {
+  const rollup = aggregateRollup(pageKeys);
+  if (rollup) {
+    if (rollup === 'Cancelled') el.classList.add('cancelled');
+    else el.classList.add(statusToClass(rollup));
+  }
+  if (fallbackUrl) {
+    el.classList.add('has-link');
+    el.dataset.confluenceUrl = fallbackUrl;
+  }
+  if (tooltipData) {
+    if (rollup) tooltipData.status = rollup;
+    tooltipData.languages = pageKeys
+      .map(k => {
+        const page = confluenceStatus.pages?.[k];
+        return page ? { label: k, value: page.rollup } : null;
+      })
+      .filter(Boolean);
+    if (fallbackUrl) tooltipData.confluenceUrl = fallbackUrl;
+    el.dataset.tooltip = JSON.stringify(tooltipData);
+  }
+}
+
+async function loadStatus() {
+  const banner = document.getElementById('sync-banner');
+  const msg = document.getElementById('sync-message');
+  try {
+    // Cache-busting query param — survives GitHub Pages CDN caching after a workflow run.
+    const res = await fetch('./status.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    confluenceStatus = await res.json();
+    const dt = new Date(confluenceStatus.generatedAt);
+    msg.textContent = `Status synced from Confluence · last updated ${dt.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })} · ${confluenceStatus.pageCount || Object.keys(confluenceStatus.pages || {}).length} pages tracked`;
+    banner.classList.remove('error');
+  } catch (err) {
+    msg.textContent = `Could not load status.json — showing timeline without Confluence status. (${err.message})`;
+    banner.classList.add('error');
+    confluenceStatus = { pages: {} };
+  }
+}
+
+// ---------- State ----------
+const state = {
+  selectedChannels: new Set(JSON.parse(localStorage.getItem('phaseB.selectedChannels') || '[]')),
+  selectedMarkets: new Set(JSON.parse(localStorage.getItem('phaseB.selectedMarkets') || '[]')),
+  zoom: localStorage.getItem('phaseB.zoom') || 'all',
+  showCancelled: localStorage.getItem('phaseB.showCancelled') !== 'false', // default true
+  viewStart: 0,
+  viewEnd: TOTAL_DAYS
+};
+
+function setView() {
+  if (state.zoom === 'all') { state.viewStart = 0; state.viewEnd = TOTAL_DAYS; return; }
+  const m = movements.find(x => x.id === state.zoom);
+  if (m) { state.viewStart = m.startDay; state.viewEnd = m.endDay; }
+  else { state.viewStart = 0; state.viewEnd = TOTAL_DAYS; }
+}
+
+function persist() {
+  localStorage.setItem('phaseB.selectedChannels', JSON.stringify([...state.selectedChannels]));
+  localStorage.setItem('phaseB.selectedMarkets', JSON.stringify([...state.selectedMarkets]));
+}
+
+function handleChipClick(set, id) {
+  // Every click toggles. Empty set = show all; non-empty = show only the selected ones.
+  if (set.has(id)) set.delete(id);
+  else set.add(id);
+}
+
+// ---------- Render ----------
+const chart = document.getElementById('chart');
+
+function buildAxis() {
+  const axis = document.createElement('div');
+  axis.className = 'axis';
+
+  const corner = document.createElement('div');
+  corner.className = 'axis-corner';
+  axis.appendChild(corner);
+
+  const track = document.createElement('div');
+  track.className = 'axis-track';
+
+  movements.forEach(m => {
+    // Only render movement bands that overlap the current view
+    if (m.endDay < state.viewStart || m.startDay > state.viewEnd) return;
+    const bandStart = Math.max(m.startDay, state.viewStart);
+    const bandEnd = Math.min(m.endDay, state.viewEnd);
+    const band = document.createElement('div');
+    band.className = 'movement-band';
+    band.style.left = pct(bandStart) + '%';
+    band.style.width = (pct(bandEnd) - pct(bandStart)) + '%';
+    band.style.background = m.color;
+    band.innerHTML = `<div class="m-name">${m.name}</div><div class="m-dates">${fmtDate(bandStart)} → ${fmtDate(bandEnd)}</div>`;
+    track.appendChild(band);
+  });
+
+  // Month ticks — only show those that fall within view
+  const ticks = document.createElement('div');
+  ticks.className = 'month-ticks';
+  const allTicks = [
+    { day: 0,   label: '13 Jul' },
+    { day: 2,   label: '15 Jul · Pulse 1' },
+    { day: 19,  label: '1 Aug' },
+    { day: 49,  label: '31 Aug' },
+    { day: 50,  label: '1 Sep' },
+    { day: 52,  label: '3 Sep · Pulse 2' },
+    { day: 79,  label: '30 Sep · Launch' },
+    { day: 81,  label: '1 Oct' },
+    { day: 86,  label: '6 Oct' },
+    { day: 92,  label: '13 Oct' },
+    { day: 100, label: '21 Oct' },
+    { day: 111, label: '1 Nov' },
+    { day: 114, label: '4 Nov' },
+    { day: 128, label: '18 Nov' },
+    { day: 140, label: '30 Nov' },
+    { day: 141, label: '1 Dec · M3' },
+    { day: 155, label: '15 Dec' },
+    { day: 162, label: '22 Dec' },
+    { day: 168, label: '28 Dec' },
+    { day: 171, label: '31 Dec · Cutoff' },
+    { day: 172, label: '1 Jan · Phase C' },
+    { day: 186, label: '15 Jan' },
+    { day: 203, label: '1 Feb' },
+    { day: 217, label: '15 Feb' },
+    { day: 231, label: '1 Mar' },
+    { day: 245, label: '15 Mar' },
+    { day: 261, label: '31 Mar' }
+  ];
+  // For full view, show only major markers; for zoomed views show finer granularity
+  const fullViewMajor = [0, 2, 19, 52, 79, 111, 141, 171, 172, 203, 231, 261];
+  const ticksToShow = state.zoom === 'all'
+    ? allTicks.filter(t => fullViewMajor.includes(t.day))
+    : allTicks.filter(t => inView(t.day));
+  ticksToShow.forEach(t => {
+    const tick = document.createElement('div');
+    tick.className = 'month-tick';
+    tick.style.position = 'absolute';
+    tick.style.left = pct(t.day) + '%';
+    tick.textContent = t.label;
+    ticks.appendChild(tick);
+  });
+  track.appendChild(ticks);
+
+  axis.appendChild(track);
+  chart.appendChild(axis);
+}
+
+function renderAugustOverlay(track) {
+  if (AUGUST_END < state.viewStart || AUGUST_START > state.viewEnd) return;
+  const clipStart = Math.max(AUGUST_START, state.viewStart);
+  const clipEnd = Math.min(AUGUST_END, state.viewEnd);
+  const aug = document.createElement('div');
+  aug.className = 'august-overlay';
+  aug.style.left = pct(clipStart) + '%';
+  aug.style.width = (pct(clipEnd) - pct(clipStart)) + '%';
+  aug.dataset.tooltip = JSON.stringify({
+    title: 'August — non-working month',
+    meta: '1 Aug → 31 Aug',
+    detail: 'No new active push or email comms. HCPs are on holiday (FR, IT, DE especially); internal stakeholders are also off. The in-app banner stays live with "Coming 30 September" holding-state content so users who do open Connect still see the message.',
+    cohort: 'All in-scope markets'
+  });
+  track.appendChild(aug);
+}
+
+function renderEvent(track, ev, channel, marketId) {
+  if (!inView(ev.day)) return; // Skip events outside current view
+
+  // Determine page key — needed before cancellation check so Confluence Cancelled can override
+  const movement = movementFromDay(ev.day);
+  const pageKey = pageKeyFor(channel.id, movement, marketId);
+  const confluenceCancelled = pageKey && confluenceStatus.pages?.[pageKey]?.rollup === 'Cancelled';
+
+  const isCancelled = ev.status === 'cancelled' || confluenceCancelled;
+  if (isCancelled && !state.showCancelled) return; // Hide cancelled if toggled off
+
+  const el = document.createElement('div');
+  let cls = ev.wave ? 'event-marker diamond' : 'event-marker';
+  el.className = cls;
+  el.style.left = pct(ev.day) + '%';
+  el.style.background = channel.color;
+  const tooltipData = {
+    title: `${channel.name} — ${ev.label}`,
+    meta: `${marketId} · ${fmtDate(ev.day)}` + (isCancelled ? ' · CANCELLED' : ''),
+    detail: ev.purpose,
+    cohort: ev.cohort
+  };
+  if (isCancelled && ev.cancellationReason) {
+    tooltipData.detail = `Cancelled: ${ev.cancellationReason}\n\nOriginal purpose: ${ev.purpose}`;
+  }
+  el.dataset.tooltip = JSON.stringify(tooltipData);
+  if (ev.label && ev.label.includes('(optional)') && !isCancelled) {
+    el.style.opacity = '0.45';
+    el.style.borderStyle = 'dashed';
+  }
+  // Apply Confluence status + click-to-open
+  enhance(el, pageKey, tooltipData, isCancelled);
+  if (isCancelled) el.classList.add('cancelled');
+  track.appendChild(el);
+}
+
+function renderBar(track, channel, marketId) {
+  // Render one segment per content pack, clipped to the current view
+  const segments = continuousBars[channel.id] || [];
+  segments.forEach(seg => {
+    if (seg.endDay < state.viewStart || seg.startDay > state.viewEnd) return;
+
+    // Determine page key — August holding state has no Confluence page (no scheduled comms)
+    const isAugust = seg.label && seg.label.startsWith('August');
+    const pageKey = isAugust ? null : pageKeyFor(channel.id, seg.movement, marketId);
+    const confluenceCancelled = pageKey && confluenceStatus.pages?.[pageKey]?.rollup === 'Cancelled';
+
+    const isCancelled = seg.status === 'cancelled' || confluenceCancelled;
+    if (isCancelled && !state.showCancelled) return;
+    const visStart = Math.max(seg.startDay, state.viewStart);
+    const visEnd = Math.min(seg.endDay, state.viewEnd);
+    const segEl = document.createElement('div');
+    segEl.className = 'event-bar';
+    segEl.style.left = pct(visStart) + '%';
+    segEl.style.width = (pct(visEnd) - pct(visStart)) + '%';
+    segEl.style.background = channel.color;
+    // August holding state is intentionally muted to signal "no active comms"
+    if (isAugust && !isCancelled) {
+      segEl.style.opacity = '0.4';
+      segEl.style.backgroundImage = 'repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(0,0,0,0.18) 4px, rgba(0,0,0,0.18) 8px)';
+    } else if (!isCancelled) {
+      segEl.style.opacity = seg.movement === 'M3' ? '0.92' : (seg.movement === 'M2' ? '0.78' : (seg.movement === 'M1' ? '0.7' : 0.55));
+    }
+    const tooltipData = {
+      title: `${channel.name} — ${seg.label}`,
+      meta: `${marketId} · ${fmtDate(seg.startDay)} → ${fmtDate(seg.endDay)}` + (isCancelled ? ' · CANCELLED' : ''),
+      detail: isCancelled && seg.cancellationReason ? `Cancelled: ${seg.cancellationReason}\n\nOriginal purpose: ${seg.purpose}` : seg.purpose,
+      cohort: 'All in-scope users in this market'
+    };
+    segEl.dataset.tooltip = JSON.stringify(tooltipData);
+    enhance(segEl, pageKey, tooltipData, isCancelled);
+    if (isCancelled) segEl.classList.add('cancelled');
+    track.appendChild(segEl);
+  });
+}
+
+function buildChannelTrack(channel, marketId) {
+  const row = document.createElement('div');
+  row.className = 'channel-row';
+  row.dataset.channel = channel.id;
+
+  const label = document.createElement('div');
+  label.className = 'channel-label';
+  label.innerHTML = `<span class="swatch" style="background:${channel.color}"></span>${channel.name}`;
+  row.appendChild(label);
+
+  const track = document.createElement('div');
+  track.className = 'channel-track';
+
+  // Movement bands as background — clipped to view
+  movements.forEach(m => {
+    if (m.endDay < state.viewStart || m.startDay > state.viewEnd) return;
+    const bandStart = Math.max(m.startDay, state.viewStart);
+    const bandEnd = Math.min(m.endDay, state.viewEnd);
+    const band = document.createElement('div');
+    band.className = `band-${m.id}`;
+    band.style.left = pct(bandStart) + '%';
+    band.style.width = (pct(bandEnd) - pct(bandStart)) + '%';
+    track.appendChild(band);
+  });
+  renderAugustOverlay(track);
+
+  if (channel.id === 'push' || channel.id === 'email') {
+    ['a', 'm1', 'm2', 'm3'].forEach(mid => {
+      discreteEvents[mid].forEach(ev => renderEvent(track, ev, channel, marketId));
+    });
+  } else if (channel.id === 'inapp' || channel.id === 'promocard') {
+    renderBar(track, channel, marketId);
+  } else if (channel.id === 'broadcast') {
+    const evs = broadcastEvents[marketId] || [];
+    evs.forEach(ev => renderEvent(track, ev, channel, marketId));
+  }
+
+  row.appendChild(track);
+  return row;
+}
+
+function buildMarketBlock(market) {
+  const block = document.createElement('div');
+  block.className = 'market-block';
+  block.dataset.market = market.id;
+
+  const header = document.createElement('div');
+  header.className = 'market-header';
+  header.innerHTML = `
+    <div class="m-label">
+      <div class="m-name">${market.id} — ${market.name}</div>
+      <div class="m-meta">${market.users} · ${market.share} of program</div>
+    </div>
+    <div class="m-notes">
+      ${market.notes.map(n => `<span class="tag ${n.cls}">${n.text}</span>`).join('')}
+    </div>
+  `;
+  block.appendChild(header);
+
+  channels.forEach(channel => {
+    if (channel.id === 'broadcast' && (!broadcastEvents[market.id] || broadcastEvents[market.id].length === 0)) return;
+    block.appendChild(buildChannelTrack(channel, market.id));
+  });
+
+  return block;
+}
+
+function buildProgramBlock() {
+  const block = document.createElement('div');
+  block.className = 'market-block program-block';
+
+  const header = document.createElement('div');
+  header.className = 'market-header';
+  header.innerHTML = `
+    <div class="m-label">
+      <div class="m-name">Program-wide</div>
+      <div class="m-meta">All markets · single touchpoints</div>
+    </div>
+    <div class="m-notes">
+      <span class="tag">Cross-market</span>
+      <span class="tag">One-off / persistent</span>
+    </div>
+  `;
+  block.appendChild(header);
+
+  programChannels.forEach(channel => {
+    const row = document.createElement('div');
+    row.className = 'channel-row';
+    row.dataset.channel = channel.id;
+
+    const label = document.createElement('div');
+    label.className = 'channel-label';
+    label.innerHTML = `<span class="swatch" style="background:${channel.color}"></span>${channel.name}`;
+    row.appendChild(label);
+
+    const track = document.createElement('div');
+    track.className = 'channel-track';
+
+    movements.forEach(m => {
+      const band = document.createElement('div');
+      band.className = `band-${m.id}`;
+      band.style.left = pct(m.startDay) + '%';
+      band.style.width = pct(m.endDay - m.startDay + 1) + '%';
+      track.appendChild(band);
+    });
+
+    if (channel.id === 'appstore') {
+      // Continuous bar from Phase B launch onward, clipped to view
+      const segStart = LAUNCH_DAY;
+      const segEnd = TOTAL_DAYS;
+      if (!(segEnd < state.viewStart || segStart > state.viewEnd)) {
+        const visStart = Math.max(segStart, state.viewStart);
+        const visEnd = Math.min(segEnd, state.viewEnd);
+        const bar = document.createElement('div');
+        bar.className = 'event-bar';
+        bar.style.left = pct(visStart) + '%';
+        bar.style.width = (pct(visEnd) - pct(visStart)) + '%';
+        bar.style.background = channel.color;
+        bar.style.opacity = '0.6';
+        const tooltipData = {
+          title: `${channel.name}`,
+          meta: `All markets · ${fmtDate(segStart)} → ${fmtDate(segEnd)}`,
+          detail: 'Updated once at Phase B launch. Mentions secure login. Persists through entire migration window. Not used in Phase A.',
+          cohort: 'Anyone discovering Connect in stores'
+        };
+        bar.dataset.tooltip = JSON.stringify(tooltipData);
+        enhance(bar, 'Program-AppStore', tooltipData);
+        track.appendChild(bar);
+      }
+    } else if (channel.id === 'helpcentre') {
+      // Three segments: passive seed through B/M1+M2, promoted in B/M3, featured in C
+      const segs = [
+        { startDay: 79,  endDay: 140, label: 'Live — passive seed (B/M1+M2)', opacity: 0.35, detail: 'Help-centre article published and live, but not promoted. Users who go looking will find it. No links in marketing comms yet.' },
+        { startDay: 141, endDay: 171, label: 'Promoted in M3 messaging', opacity: 0.7, detail: 'M3 escalation comms link to the article ("here\'s what creating a new account will look like"). Article surfaces in CS scripts.' },
+        { startDay: 172, endDay: 261, label: 'Featured in Phase C recovery', opacity: 1, detail: 'Article is the primary recovery asset for locked-out users. Public-facing FAQ is featured. CS scripts route here first.' }
+      ];
+      const helpCentrePageKeys = ['NL','DE','BE','UK','FR','IT'].map(m => `C-HelpCentre-${m}`);
+      segs.forEach(seg => {
+        if (seg.endDay < state.viewStart || seg.startDay > state.viewEnd) return;
+        const visStart = Math.max(seg.startDay, state.viewStart);
+        const visEnd = Math.min(seg.endDay, state.viewEnd);
+        const bar = document.createElement('div');
+        bar.className = 'event-bar';
+        bar.style.left = pct(visStart) + '%';
+        bar.style.width = (pct(visEnd) - pct(visStart)) + '%';
+        bar.style.background = channel.color;
+        bar.style.opacity = seg.opacity;
+        const tooltipData = {
+          title: `${channel.name} — ${seg.label}`,
+          meta: `All markets · ${fmtDate(seg.startDay)} → ${fmtDate(seg.endDay)}`,
+          detail: seg.detail,
+          cohort: 'Users searching for help or routed by CS'
+        };
+        bar.dataset.tooltip = JSON.stringify(tooltipData);
+        // Aggregate status across all 6 markets; click opens the folder page listing them.
+        enhanceAggregate(bar, helpCentrePageKeys, HELP_CENTRE_FOLDER_URL, tooltipData);
+        track.appendChild(bar);
+      });
+    } else {
+      programEvents[channel.id].forEach(ev => renderEvent(track, ev, channel, 'Program'));
+    }
+
+    row.appendChild(track);
+    block.appendChild(row);
+  });
+
+  return block;
+}
+
+function build() {
+  setView();
+  chart.className = 'chart zoom-' + state.zoom;
+  chart.innerHTML = '';
+  buildAxis();
+  chart.appendChild(buildProgramBlock());
+  markets.forEach(m => chart.appendChild(buildMarketBlock(m)));
+  applyFilters();
+  // Reset horizontal scroll on zoom change
+  document.getElementById('chart-scroll').scrollLeft = 0;
+}
+
+function applyFilters() {
+  // Markets: empty set = show all; non-empty = show only selected
+  const marketAny = state.selectedMarkets.size > 0;
+  document.querySelectorAll('.market-block[data-market]').forEach(b => {
+    const hide = marketAny && !state.selectedMarkets.has(b.dataset.market);
+    b.style.display = hide ? 'none' : '';
+  });
+  // Channels: same logic
+  const channelAny = state.selectedChannels.size > 0;
+  document.querySelectorAll('.channel-row[data-channel]').forEach(r => {
+    const hide = channelAny && !state.selectedChannels.has(r.dataset.channel);
+    r.style.display = hide ? 'none' : '';
+  });
+  // Channel chips visual state
+  document.querySelectorAll('.chip[data-channel]').forEach(c => {
+    if (!channelAny) {
+      c.classList.remove('off');
+      c.classList.remove('selected');
+    } else if (state.selectedChannels.has(c.dataset.channel)) {
+      c.classList.remove('off');
+      c.classList.add('selected');
+    } else {
+      c.classList.add('off');
+      c.classList.remove('selected');
+    }
+  });
+  // Market chips visual state
+  document.querySelectorAll('.chip[data-market]').forEach(c => {
+    if (!marketAny) {
+      c.classList.remove('off');
+      c.classList.remove('selected');
+    } else if (state.selectedMarkets.has(c.dataset.market)) {
+      c.classList.remove('off');
+      c.classList.add('selected');
+    } else {
+      c.classList.add('off');
+      c.classList.remove('selected');
+    }
+  });
+}
+
+// ---------- Filter handlers ----------
+document.querySelectorAll('.chip[data-channel]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    handleChipClick(state.selectedChannels, chip.dataset.channel);
+    persist();
+    applyFilters();
+  });
+});
+
+document.querySelectorAll('.chip[data-market]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    handleChipClick(state.selectedMarkets, chip.dataset.market);
+    persist();
+    applyFilters();
+  });
+});
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  state.selectedChannels.clear();
+  state.selectedMarkets.clear();
+  state.zoom = 'all';
+  state.showCancelled = true;
+  localStorage.setItem('phaseB.zoom', 'all');
+  localStorage.setItem('phaseB.showCancelled', 'true');
+  applyZoomButtonState();
+  updateCancelledToggleLabel();
+  persist();
+  build();
+});
+
+function updateCancelledToggleLabel() {
+  const btn = document.getElementById('cancelled-toggle');
+  btn.textContent = state.showCancelled ? 'Hide cancelled' : 'Show cancelled';
+}
+
+document.getElementById('cancelled-toggle').addEventListener('click', () => {
+  state.showCancelled = !state.showCancelled;
+  localStorage.setItem('phaseB.showCancelled', String(state.showCancelled));
+  updateCancelledToggleLabel();
+  build();
+});
+
+// ---------- Zoom ----------
+function applyZoomButtonState() {
+  document.querySelectorAll('.zoom-btn').forEach(b => b.classList.toggle('active', b.dataset.zoom === state.zoom));
+}
+
+document.querySelectorAll('.zoom-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    state.zoom = btn.dataset.zoom;
+    localStorage.setItem('phaseB.zoom', state.zoom);
+    applyZoomButtonState();
+    build();
+  });
+});
+
+// ---------- Tooltip ----------
+const tooltip = document.getElementById('tooltip');
+document.addEventListener('mousemove', e => {
+  const target = e.target.closest('[data-tooltip]');
+  if (target) {
+    const data = JSON.parse(target.dataset.tooltip);
+    const statusClass = data.status ? data.status.toLowerCase().replace(/\s+/g, '-') : '';
+    const langHtml = data.languages && data.languages.length
+      ? `<div class="tt-meta" style="margin-top:4px">${data.languages.map(s => `${s.label}: ${s.value}`).join(' · ')}</div>`
+      : '';
+    const linkHint = data.confluenceUrl
+      ? `<div class="tt-meta" style="margin-top:4px;color:#60a5fa">Click to open in Confluence ↗</div>`
+      : '';
+    tooltip.innerHTML = `
+      ${data.status ? `<div class="tt-status ${statusClass}">${data.status}</div>` : ''}
+      <div class="tt-title">${data.title}</div>
+      <div class="tt-meta">${data.meta}</div>
+      <div class="tt-detail">${data.detail}</div>
+      ${langHtml}
+      ${data.cohort ? `<div class="tt-cohort">Audience: ${data.cohort}</div>` : ''}
+      ${linkHint}
+    `;
+    tooltip.classList.add('show');
+    const x = Math.min(e.clientX + 12, window.innerWidth - 290);
+    const y = Math.min(e.clientY + 12, window.innerHeight - 140);
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  } else {
+    tooltip.classList.remove('show');
+  }
+});
+
+// ---------- Click-to-open Confluence ----------
+document.addEventListener('click', e => {
+  const target = e.target.closest('[data-confluence-url]');
+  if (target) {
+    window.open(target.dataset.confluenceUrl, '_blank', 'noopener,noreferrer');
+  }
+});
+
+// ---------- Refresh + Reload ----------
+document.getElementById('refresh-btn').addEventListener('click', () => {
+  window.open(REFRESH_WORKFLOW_URL, '_blank', 'noopener,noreferrer');
+});
+document.getElementById('reload-btn').addEventListener('click', () => {
+  window.location.reload();
+});
+
+// ---------- Init ----------
+applyZoomButtonState();
+updateCancelledToggleLabel();
+(async () => {
+  await loadStatus();
+  build();
+})();
+</script>
+</body>
+</html>

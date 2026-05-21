@@ -1,0 +1,13 @@
+{
+  "name": "one-account-timeline",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Phase A/B/C migration timeline for the One Account programme. Pulls status from Confluence Page Properties.",
+  "scripts": {
+    "sync": "node scripts/sync.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
