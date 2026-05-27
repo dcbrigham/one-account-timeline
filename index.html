@@ -220,7 +220,7 @@ body { padding: 20px 24px 40px; }
   <div class="footnote"><strong>Phase A scope.</strong> Phase A uses only push, email, and in-app banner (per v5 doc). No Promocard, Connect broadcast, LinkedIn, or app store presence in Phase A. Pulse 1 (~15 Jul) lands before HCPs check out for August; Pulse 2 (~3 Sep) is the post-holiday reintroduction with deadline foreshadowing.</div>
   <div class="footnote"><strong>Movement 3 note.</strong> Movement 3 messaging carries both consequence framing ("you'll lose access if you don't migrate") and recovery information ("here's what creating a new account will look like"). This seeds Phase C so the cutoff isn't a surprise.</div>
   <div class="footnote"><strong>Phase C scope.</strong> Phase C is CS-led and reactive — no scheduled push, email, broadcast, or Promocard. The active surfaces are the in-app "locked-out" message (visible to users who attempt to log in with old credentials) and the help-centre article / public FAQ (live throughout Phase B as a passive seed, promoted in M3, featured in C). Push/email/Promocard/broadcast lanes are intentionally empty in Phase C.</div>
-  <div class="footnote"><strong>Cancelled campaigns.</strong> Campaigns marked as cancelled appear muted with a red strikethrough (markers) or hashed pattern (bars). The tooltip surfaces the cancellation reason. Toggle "Hide cancelled" in the filter bar to remove them from view entirely. Currently shown: 1 demo cancellation (BE M1 broadcast).</div>
+  <div class="footnote"><strong>Cancelled campaigns.</strong> Campaigns marked as cancelled appear muted with a red strikethrough (markers) or hashed pattern (bars). The tooltip surfaces the cancellation reason. Toggle "Hide cancelled" in the filter bar to remove them from view entirely.</div>
   <div class="footnote"><strong>Placeholder dates.</strong> Pulse 1 (15 Jul) and Pulse 2 (3 Sep) are working dates; the Dec 31 cutoff is a working assumption pending Calvin sign-off. Phase C end (31 Mar 2027) covers Q1 retro window — adjust if your wrap-up timeline differs.</div>
 </div>
 
@@ -336,7 +336,7 @@ const broadcastEvents = {
   ],
   // Others get optional treatment — show as muted single broadcast
   DE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All DE Connect-only', purpose: 'Optional under Model C. Decision pending DE Connect ops.' }],
-  BE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All BE Connect-only', purpose: 'Optional. Dual-language consideration if used.', status: 'cancelled', cancellationReason: 'Demo cancellation — BE team decided against broadcast in M1 to test the cancelled state visual. Replace with real reason when actually cancelled.' }],
+  BE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All BE Connect-only', purpose: 'Optional. Dual-language consideration if used.' }],
   UK: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All UK Connect-only', purpose: 'Optional under Model C.' }],
   FR: [],
   IT: []
