@@ -139,65 +139,136 @@ body { padding: 20px 24px 40px; }
 .footer { margin-top: 16px; padding: 12px 14px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 11px; color: #6b7280; }
 .footer strong { color: #111827; }
 .footer .footnote { margin-top: 6px; }
+
+/* Stakeholder snapshot panel (top of page) */
+.snapshot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 18px; }
+@media (max-width: 880px) { .snapshot { grid-template-columns: 1fr; } }
+.snap-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; min-height: 132px; }
+.snap-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; font-weight: 600; margin-bottom: 8px; }
+.snap-headline { font-size: 15px; font-weight: 600; color: #111827; line-height: 1.3; }
+.snap-sub { font-size: 12px; color: #6b7280; margin-top: 3px; }
+.snap-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.snap-item { font-size: 12px; color: #374151; line-height: 1.4; }
+.snap-item .snap-item-when { display: inline-block; font-weight: 600; color: #111827; min-width: 56px; }
+.snap-item .snap-item-scope { color: #6b7280; font-size: 11px; display: block; margin-top: 1px; }
+.snap-empty { font-size: 12px; color: #9ca3af; font-style: italic; }
+.snap-health-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 10px; background: #f3f4f6; }
+.snap-health-bar .seg { height: 100%; }
+.snap-health-bar .seg.live { background: #10B981; }
+.snap-health-bar .seg.ready { background: #3B82F6; }
+.snap-health-bar .seg.in-progress { background: #FBBF24; }
+.snap-health-bar .seg.not-started { background: #d1d5db; }
+.snap-health-bar .seg.cancelled { background: #dc2626; }
+.snap-health-legend { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-top: 8px; font-size: 11px; color: #6b7280; }
+.snap-health-legend .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+
+/* Tagline (replaces the dense sub-paragraph) */
+.tagline { font-size: 13px; color: #6b7280; margin-top: 4px; }
+
+/* Collapsible disclosures (legend/filters + how-to-read footer) */
+.disclosure { margin-top: 8px; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; }
+.disclosure > summary { cursor: pointer; padding: 8px 12px; font-size: 12px; color: #374151; font-weight: 500; list-style: none; user-select: none; }
+.disclosure > summary::-webkit-details-marker { display: none; }
+.disclosure > summary::before { content: '▸'; display: inline-block; margin-right: 6px; color: #9ca3af; transition: transform 0.15s; font-size: 10px; }
+.disclosure[open] > summary::before { transform: rotate(90deg); }
+.disclosure > summary:hover { background: #f9fafb; }
+.disclosure-body { padding: 6px 12px 12px; border-top: 1px solid #f3f4f6; }
+.disclosure-body .legend-row { background: transparent; border: none; padding: 8px 0; margin-top: 0; }
+.disclosure-body .filters { background: transparent; border: none; padding: 8px 0 0; margin: 0; }
+.disclosure-body .legend-row + .legend-row { border-top: 1px dashed #f3f4f6; }
+.disclosure-body .footnote-block strong { color: #111827; }
+.disclosure-body .footnote-block .footnote { margin-top: 8px; font-size: 11px; color: #6b7280; line-height: 1.5; }
+
+/* "Today" marker on the chart */
+.today-line { position: absolute; top: 0; bottom: 0; width: 1.5px; background: rgba(220, 38, 38, 0.55); pointer-events: none; z-index: 2; }
+.today-line.in-axis { top: auto; bottom: 0; height: 22px; }
+.today-label { position: absolute; top: 2px; transform: translateX(-50%); font-size: 10px; font-weight: 600; color: #b91c1c; background: rgba(255,255,255,0.92); padding: 1px 5px; border-radius: 3px; border: 1px solid rgba(220, 38, 38, 0.35); white-space: nowrap; pointer-events: none; z-index: 3; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>One Account — Campaign Timeline (Phase A + B + C)</h1>
-  <div class="sub">Window: 13 July 2026 (Pulse 1) → 31 March 2027 (Phase C end). Phase A is pre-migration awareness; Phase B is the migration window itself; Phase C is post-cutoff recovery. Hover any element for detail. Click chips to filter — click again to remove. With nothing selected, everything is shown.</div>
-
-  <div class="legend-row">
-    <div class="grp">
-      <span class="grp-label">Channels</span>
-      <span class="chip" data-channel="push"><span class="swatch" style="background:#4F46E5"></span>Push notification</span>
-      <span class="chip" data-channel="email"><span class="swatch" style="background:#0EA5E9"></span>Email (Braze)</span>
-      <span class="chip" data-channel="inapp"><span class="swatch" style="background:#10B981"></span>In-app banner</span>
-      <span class="chip" data-channel="promocard"><span class="swatch" style="background:#F59E0B"></span>Promocard</span>
-      <span class="chip" data-channel="broadcast"><span class="swatch" style="background:#EC4899"></span>Connect broadcast</span>
-      <span class="chip" data-channel="linkedin"><span class="swatch" style="background:#1E40AF"></span>LinkedIn</span>
-      <span class="chip" data-channel="appstore"><span class="swatch" style="background:#6B7280"></span>App store copy</span>
-      <span class="chip" data-channel="helpcentre"><span class="swatch" style="background:#7C3AED"></span>Help centre / FAQ</span>
-    </div>
-  </div>
-
-  <div class="legend-row" style="margin-top: 6px;">
-    <div class="grp">
-      <span class="grp-label">Markets</span>
-      <span class="chip" data-market="NL">NL</span>
-      <span class="chip" data-market="DE">DE</span>
-      <span class="chip" data-market="BE">BE</span>
-      <span class="chip" data-market="UK">UK</span>
-      <span class="chip" data-market="FR">FR (C-O)</span>
-      <span class="chip" data-market="IT">IT (C-O)</span>
-    </div>
-  </div>
-
-  <div class="legend-row" style="margin-top: 6px;">
-    <div class="grp">
-      <span class="grp-label">Content status</span>
-      <span class="chip" data-status="not-started" title="Click to filter by status"><span class="swatch" style="background:#6b7280"></span>Not started</span>
-      <span class="chip" data-status="in-progress" title="Click to filter by status"><span class="swatch" style="background:#FBBF24"></span>In progress</span>
-      <span class="chip" data-status="ready" title="Click to filter by status"><span class="swatch" style="background:#3B82F6"></span>Ready</span>
-      <span class="chip" data-status="live" title="Click to filter by status"><span class="swatch" style="background:#10B981"></span>Live</span>
-      <span class="chip" data-status="cancelled" title="Click to filter by status"><span class="swatch" style="background:#dc2626"></span>Cancelled</span>
-    </div>
-  </div>
+  <h1>One Account migration — campaign timeline</h1>
+  <div class="tagline">A live view of every comm scheduled across the migration window (13 Jul 2026 → 31 Mar 2027). Statuses sync daily from Confluence.</div>
 </div>
 
-<div class="filters">
-  <span class="filter-label">Zoom</span>
-  <div class="zoom-btns">
-    <button class="zoom-btn active" data-zoom="all">Full window</button>
-    <button class="zoom-btn" data-zoom="a">Phase A — Awareness</button>
-    <button class="zoom-btn" data-zoom="m1">B/M1 — Launch</button>
-    <button class="zoom-btn" data-zoom="m2">B/M2 — Active</button>
-    <button class="zoom-btn" data-zoom="m3">B/M3 — Escalation</button>
-    <button class="zoom-btn" data-zoom="c">Phase C — Recovery</button>
+<section class="snapshot" aria-label="Stakeholder snapshot">
+  <div class="snap-card snap-now">
+    <div class="snap-eyebrow">Where we are now</div>
+    <div class="snap-headline" id="snap-now-headline">Loading…</div>
+    <div class="snap-sub" id="snap-now-sub"></div>
+    <div class="snap-list" id="snap-now-active"></div>
   </div>
-  <button class="reset-btn" id="cancelled-toggle">Hide cancelled</button>
-  <button class="reset-btn" id="reset-btn">Reset filters</button>
-</div>
+  <div class="snap-card snap-next">
+    <div class="snap-eyebrow">What's coming next</div>
+    <div class="snap-list" id="snap-next-list">
+      <div class="snap-empty">Loading…</div>
+    </div>
+  </div>
+  <div class="snap-card snap-health">
+    <div class="snap-eyebrow">How content's tracking</div>
+    <div class="snap-headline" id="snap-health-count">—</div>
+    <div class="snap-sub" id="snap-health-sub">Loading status from Confluence…</div>
+    <div class="snap-health-bar" id="snap-health-bar"></div>
+    <div class="snap-health-legend" id="snap-health-legend"></div>
+  </div>
+</section>
+
+<details class="disclosure" id="legend-disclosure">
+  <summary>Show legend &amp; filters</summary>
+  <div class="disclosure-body">
+    <div class="legend-row">
+      <div class="grp">
+        <span class="grp-label">Channels</span>
+        <span class="chip" data-channel="push"><span class="swatch" style="background:#4F46E5"></span>Push notification</span>
+        <span class="chip" data-channel="email"><span class="swatch" style="background:#0EA5E9"></span>Email (Braze)</span>
+        <span class="chip" data-channel="inapp"><span class="swatch" style="background:#10B981"></span>In-app banner</span>
+        <span class="chip" data-channel="promocard"><span class="swatch" style="background:#F59E0B"></span>Promocard</span>
+        <span class="chip" data-channel="broadcast"><span class="swatch" style="background:#EC4899"></span>Connect broadcast</span>
+        <span class="chip" data-channel="linkedin"><span class="swatch" style="background:#1E40AF"></span>LinkedIn</span>
+        <span class="chip" data-channel="appstore"><span class="swatch" style="background:#6B7280"></span>App store copy</span>
+        <span class="chip" data-channel="helpcentre"><span class="swatch" style="background:#7C3AED"></span>Help centre / FAQ</span>
+      </div>
+    </div>
+
+    <div class="legend-row">
+      <div class="grp">
+        <span class="grp-label">Markets</span>
+        <span class="chip" data-market="NL">NL</span>
+        <span class="chip" data-market="DE">DE</span>
+        <span class="chip" data-market="BE">BE</span>
+        <span class="chip" data-market="UK">UK</span>
+        <span class="chip" data-market="FR">FR (C-O)</span>
+        <span class="chip" data-market="IT">IT (C-O)</span>
+      </div>
+    </div>
+
+    <div class="legend-row">
+      <div class="grp">
+        <span class="grp-label">Content status</span>
+        <span class="chip" data-status="not-started" title="Click to filter by status"><span class="swatch" style="background:#6b7280"></span>Not started</span>
+        <span class="chip" data-status="in-progress" title="Click to filter by status"><span class="swatch" style="background:#FBBF24"></span>In progress</span>
+        <span class="chip" data-status="ready" title="Click to filter by status"><span class="swatch" style="background:#3B82F6"></span>Ready</span>
+        <span class="chip" data-status="live" title="Click to filter by status"><span class="swatch" style="background:#10B981"></span>Live</span>
+        <span class="chip" data-status="cancelled" title="Click to filter by status"><span class="swatch" style="background:#dc2626"></span>Cancelled</span>
+      </div>
+    </div>
+
+    <div class="filters">
+      <span class="filter-label">Zoom</span>
+      <div class="zoom-btns">
+        <button class="zoom-btn active" data-zoom="all">Full window</button>
+        <button class="zoom-btn" data-zoom="a">Phase A — Awareness</button>
+        <button class="zoom-btn" data-zoom="m1">B/M1 — Launch</button>
+        <button class="zoom-btn" data-zoom="m2">B/M2 — Active</button>
+        <button class="zoom-btn" data-zoom="m3">B/M3 — Escalation</button>
+        <button class="zoom-btn" data-zoom="c">Phase C — Recovery</button>
+      </div>
+      <button class="reset-btn" id="cancelled-toggle">Hide cancelled</button>
+      <button class="reset-btn" id="reset-btn">Reset filters</button>
+    </div>
+  </div>
+</details>
 
 <div class="sync-banner" id="sync-banner">
   <span class="dot"></span>
@@ -214,15 +285,19 @@ body { padding: 20px 24px 40px; }
   </div>
 </div>
 
-<div class="footer">
-  <strong>Reading the chart.</strong>
-  Each market row shows the campaign cadence per channel. Circles are discrete moments (a push send, an email send, a broadcast). Bars are continuous (in-app banner, Promocard, help centre) — segmented to show how the content pack changes between phases and movements. Diamonds mark cohort waves in Movement 1 (10% / +15% / +25% / +25% / +25% over the first 14 days). The diagonal-striped band is the August dead zone — no new comms ship, but the in-app banner stays live with the "Coming 30 September" holding state.
-  <div class="footnote"><strong>Phase A scope.</strong> Phase A uses only push, email, and in-app banner (per v5 doc). No Promocard, Connect broadcast, LinkedIn, or app store presence in Phase A. Pulse 1 (~15 Jul) lands before HCPs check out for August; Pulse 2 (~3 Sep) is the post-holiday reintroduction with deadline foreshadowing.</div>
-  <div class="footnote"><strong>Movement 3 note.</strong> Movement 3 messaging carries both consequence framing ("you'll lose access if you don't migrate") and recovery information ("here's what creating a new account will look like"). This seeds Phase C so the cutoff isn't a surprise.</div>
-  <div class="footnote"><strong>Phase C scope.</strong> Phase C is CS-led and reactive — no scheduled push, email, broadcast, or Promocard. The active surfaces are the in-app "locked-out" message (visible to users who attempt to log in with old credentials) and the help-centre article / public FAQ (live throughout Phase B as a passive seed, promoted in M3, featured in C). Push/email/Promocard/broadcast lanes are intentionally empty in Phase C.</div>
-  <div class="footnote"><strong>Cancelled campaigns.</strong> Campaigns marked as cancelled appear muted with a red strikethrough (markers) or hashed pattern (bars). The tooltip surfaces the cancellation reason. Toggle "Hide cancelled" in the filter bar to remove them from view entirely.</div>
-  <div class="footnote"><strong>Placeholder dates.</strong> Pulse 1 (15 Jul) and Pulse 2 (3 Sep) are working dates; the Dec 31 cutoff is a working assumption pending Calvin sign-off. Phase C end (31 Mar 2027) covers Q1 retro window — adjust if your wrap-up timeline differs.</div>
-</div>
+<details class="disclosure" id="howto-disclosure" style="margin-top: 16px;">
+  <summary>How to read this chart</summary>
+  <div class="disclosure-body footnote-block">
+    <div style="font-size: 11px; color: #6b7280; line-height: 1.5;">
+      Each market row shows the campaign cadence per channel. Circles are discrete moments (a push send, an email send, a broadcast). Bars are continuous (in-app banner, Promocard, help centre) — segmented to show how the content pack changes between phases and movements. Diamonds mark cohort waves in Movement 1 (10% / +15% / +25% / +25% / +25% over the first 14 days). The diagonal-striped band is the August dead zone — no new comms ship, but the in-app banner stays live with the &ldquo;Coming 30 September&rdquo; holding state. The red vertical line marks today.
+    </div>
+    <div class="footnote"><strong>Phase A scope.</strong> Phase A uses only push, email, and in-app banner. No Promocard, Connect broadcast, LinkedIn, or app store presence in Phase A. Pulse 1 (~15 Jul) lands before HCPs check out for August; Pulse 2 (~3 Sep) is the post-holiday reintroduction with deadline foreshadowing.</div>
+    <div class="footnote"><strong>Movement 3 note.</strong> Movement 3 messaging carries both consequence framing (&ldquo;you'll lose access if you don't migrate&rdquo;) and recovery information (&ldquo;here's what creating a new account will look like&rdquo;). This seeds Phase C so the cutoff isn't a surprise.</div>
+    <div class="footnote"><strong>Phase C scope.</strong> Phase C is CS-led and reactive — no scheduled push, email, broadcast, or Promocard. The active surfaces are the in-app &ldquo;locked-out&rdquo; message (visible to users who attempt to log in with old credentials) and the help-centre article / public FAQ (live throughout Phase B as a passive seed, promoted in M3, featured in C). Push/email/Promocard/broadcast lanes are intentionally empty in Phase C.</div>
+    <div class="footnote"><strong>Cancelled campaigns.</strong> Campaigns marked as cancelled appear muted with a red strikethrough (markers) or hashed pattern (bars). The tooltip surfaces the cancellation reason. Toggle &ldquo;Hide cancelled&rdquo; in the filter bar to remove them from view entirely.</div>
+    <div class="footnote"><strong>Placeholder dates.</strong> Pulse 1 (15 Jul) and Pulse 2 (3 Sep) are working dates. Phase C end (31 Mar 2027) covers the Q1 retro window — adjust if the wrap-up timeline differs.</div>
+  </div>
+</details>
 
 <div class="tooltip" id="tooltip"></div>
 
@@ -250,6 +325,31 @@ function clipDay(day) {
 function fmtDate(day) {
   const d = new Date(START.getTime() + day * 86400000);
   return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+}
+function fmtDateLong(day) {
+  const d = new Date(START.getTime() + day * 86400000);
+  return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+// "Today" — computed once per render. dayOf(new Date()) can be negative (pre-launch)
+// or > TOTAL_DAYS (post-completion); callers must guard for that.
+const TODAY_DAY = dayOf(new Date());
+
+// Append a vertical "today" line to a chart track. Adds the date label only to the axis row.
+function renderTodayLine(track, opts) {
+  opts = opts || {};
+  if (TODAY_DAY < state.viewStart || TODAY_DAY > state.viewEnd) return;
+  const line = document.createElement('div');
+  line.className = 'today-line' + (opts.inAxis ? ' in-axis' : '');
+  line.style.left = pct(TODAY_DAY) + '%';
+  track.appendChild(line);
+  if (opts.inAxis) {
+    const label = document.createElement('div');
+    label.className = 'today-label';
+    label.style.left = pct(TODAY_DAY) + '%';
+    label.textContent = 'Today · ' + fmtDate(TODAY_DAY);
+    track.appendChild(label);
+  }
 }
 
 const movements = [
@@ -593,6 +693,8 @@ function buildAxis() {
   });
   track.appendChild(ticks);
 
+  renderTodayLine(track, { inAxis: true });
+
   axis.appendChild(track);
   chart.appendChild(axis);
 }
@@ -727,6 +829,8 @@ function buildChannelTrack(channel, marketId) {
     evs.forEach(ev => renderEvent(track, ev, channel, marketId));
   }
 
+  renderTodayLine(track);
+
   row.appendChild(track);
   return row;
 }
@@ -851,6 +955,8 @@ function buildProgramBlock() {
     } else {
       programEvents[channel.id].forEach(ev => renderEvent(track, ev, channel, 'Program'));
     }
+
+    renderTodayLine(track);
 
     row.appendChild(track);
     block.appendChild(row);
@@ -1048,11 +1154,257 @@ document.getElementById('reload-btn').addEventListener('click', () => {
   window.location.reload();
 });
 
+// ---------- Stakeholder snapshot ----------
+// Three derivations driven off TODAY_DAY + the existing campaign data + status.json.
+// Pure functions where possible so they're easy to test in isolation.
+
+const CHANNEL_NAME = { push: 'Push', email: 'Email', inapp: 'In-app banner', promocard: 'Promocard', broadcast: 'Connect broadcast', linkedin: 'LinkedIn', appstore: 'App store', helpcentre: 'Help centre' };
+
+function computeNow(todayDay) {
+  if (todayDay < 0) {
+    return {
+      state: 'pre-launch',
+      headline: "Programme hasn't started yet",
+      sub: `Phase A begins ${fmtDateLong(0)} (${Math.abs(todayDay)} days from now)`,
+      active: []
+    };
+  }
+  if (todayDay > TOTAL_DAYS) {
+    return {
+      state: 'complete',
+      headline: 'Programme window closed',
+      sub: `Phase C ended ${fmtDateLong(TOTAL_DAYS)}`,
+      active: []
+    };
+  }
+  const m = movements.find(mv => todayDay >= mv.startDay && todayDay <= mv.endDay);
+  const phaseDay = todayDay - m.startDay + 1;
+  const phaseLen = m.endDay - m.startDay + 1;
+
+  const active = [];
+  // Continuous bars (in-app banner, Promocard) active today — one entry per channel
+  ['inapp', 'promocard'].forEach(chId => {
+    const seg = (continuousBars[chId] || []).find(s => todayDay >= s.startDay && todayDay <= s.endDay);
+    if (seg) {
+      active.push({
+        kind: 'bar',
+        channel: CHANNEL_NAME[chId],
+        label: seg.label,
+        range: `${fmtDate(seg.startDay)} → ${fmtDate(seg.endDay)}`
+      });
+    }
+  });
+  // Discrete events within ±3 days (push/email)
+  ['a', 'm1', 'm2', 'm3'].forEach(mid => {
+    (discreteEvents[mid] || []).forEach(ev => {
+      if (Math.abs(ev.day - todayDay) <= 3) {
+        active.push({
+          kind: 'event',
+          channel: 'Push + Email',
+          label: ev.label,
+          range: fmtDate(ev.day),
+          offset: ev.day - todayDay
+        });
+      }
+    });
+  });
+  // Broadcasts within ±3 days
+  Object.entries(broadcastEvents).forEach(([market, evs]) => {
+    evs.forEach(ev => {
+      if (Math.abs(ev.day - todayDay) <= 3) {
+        active.push({
+          kind: 'event',
+          channel: `Connect broadcast · ${market}`,
+          label: ev.label,
+          range: fmtDate(ev.day),
+          offset: ev.day - todayDay
+        });
+      }
+    });
+  });
+
+  return {
+    state: 'in-flight',
+    headline: m.name,
+    sub: `Day ${phaseDay} of ${phaseLen} in this phase`,
+    active
+  };
+}
+
+function computeNext(todayDay, n) {
+  n = n || 3;
+  const milestones = [];
+
+  ['a', 'm1', 'm2', 'm3'].forEach(mid => {
+    (discreteEvents[mid] || []).forEach(ev => {
+      // Cohort waves are working-team detail; skip them in the stakeholder list.
+      if (ev.wave) return;
+      milestones.push({
+        day: ev.day,
+        label: ev.label,
+        scope: 'Push + Email · all 6 markets',
+        date: fmtDate(ev.day)
+      });
+    });
+  });
+
+  Object.entries(broadcastEvents).forEach(([market, evs]) => {
+    evs.forEach(ev => {
+      // Optional broadcasts are not confirmed sends; skip until they harden.
+      if (ev.label && ev.label.includes('(optional)')) return;
+      milestones.push({
+        day: ev.day,
+        label: ev.label,
+        scope: `Connect broadcast · ${market}`,
+        date: fmtDate(ev.day)
+      });
+    });
+  });
+
+  Object.entries(programEvents).forEach(([chId, evs]) => {
+    evs.forEach(ev => {
+      milestones.push({
+        day: ev.day,
+        label: ev.label,
+        scope: `${CHANNEL_NAME[chId] || chId} · program-wide`,
+        date: fmtDate(ev.day)
+      });
+    });
+  });
+
+  // Continuous-bar starts (excluding the August holding state — that's not a content pack)
+  ['inapp', 'promocard'].forEach(chId => {
+    (continuousBars[chId] || []).forEach(seg => {
+      if (seg.label && seg.label.startsWith('August')) return;
+      milestones.push({
+        day: seg.startDay,
+        label: seg.label + ' begins',
+        scope: `${CHANNEL_NAME[chId]} · all 6 markets`,
+        date: fmtDate(seg.startDay)
+      });
+    });
+  });
+
+  return milestones
+    .filter(m => m.day > todayDay)
+    .sort((a, b) => a.day - b.day)
+    .slice(0, n);
+}
+
+function computeHealth(statusPages) {
+  const tally = { 'Live': 0, 'Ready': 0, 'In progress': 0, 'Not started': 0, 'Cancelled': 0 };
+  let total = 0;
+  Object.values(statusPages || {}).forEach(p => {
+    const r = p && p.rollup;
+    if (r && (r in tally)) {
+      tally[r]++;
+      total++;
+    }
+  });
+  return { tally, total };
+}
+
+function renderSnapshot() {
+  // Where we are now
+  const now = computeNow(TODAY_DAY);
+  document.getElementById('snap-now-headline').textContent = now.headline;
+  document.getElementById('snap-now-sub').textContent = now.sub || '';
+  const activeEl = document.getElementById('snap-now-active');
+  activeEl.innerHTML = '';
+  if (now.state === 'in-flight') {
+    if (!now.active.length) {
+      activeEl.innerHTML = '<div class="snap-empty">No comms active this week.</div>';
+    } else {
+      now.active.slice(0, 4).forEach(a => {
+        const row = document.createElement('div');
+        row.className = 'snap-item';
+        const whenLabel = a.kind === 'event'
+          ? (a.offset === 0 ? 'Today' : a.offset > 0 ? `+${a.offset}d` : `${a.offset}d`)
+          : 'Active';
+        row.innerHTML = `<span class="snap-item-when">${whenLabel}</span> ${escapeHTML(a.channel)} — ${escapeHTML(a.label)}<span class="snap-item-scope">${escapeHTML(a.range)}</span>`;
+        activeEl.appendChild(row);
+      });
+    }
+  }
+
+  // What's coming next
+  const next = computeNext(TODAY_DAY, 3);
+  const nextEl = document.getElementById('snap-next-list');
+  nextEl.innerHTML = '';
+  if (!next.length) {
+    nextEl.innerHTML = '<div class="snap-empty">No further milestones in the window.</div>';
+  } else {
+    next.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'snap-item';
+      row.innerHTML = `<span class="snap-item-when">${escapeHTML(item.date)}</span> ${escapeHTML(item.label)}<span class="snap-item-scope">${escapeHTML(item.scope)}</span>`;
+      nextEl.appendChild(row);
+    });
+  }
+
+  // How content's tracking
+  const health = computeHealth(confluenceStatus.pages);
+  const liveReady = health.tally['Live'] + health.tally['Ready'];
+  document.getElementById('snap-health-count').textContent = health.total
+    ? `${liveReady} of ${health.total} ready or live`
+    : 'No status data';
+  const inProg = health.tally['In progress'];
+  const notStarted = health.tally['Not started'];
+  const cancelled = health.tally['Cancelled'];
+  document.getElementById('snap-health-sub').textContent = health.total
+    ? `${inProg} in progress · ${notStarted} not started${cancelled ? ` · ${cancelled} cancelled` : ''}`
+    : 'Waiting for status.json…';
+
+  const bar = document.getElementById('snap-health-bar');
+  bar.innerHTML = '';
+  if (health.total) {
+    const order = [
+      ['live', 'Live', health.tally['Live']],
+      ['ready', 'Ready', health.tally['Ready']],
+      ['in-progress', 'In progress', health.tally['In progress']],
+      ['not-started', 'Not started', health.tally['Not started']],
+      ['cancelled', 'Cancelled', health.tally['Cancelled']]
+    ];
+    order.forEach(([cls, , count]) => {
+      if (count <= 0) return;
+      const seg = document.createElement('div');
+      seg.className = 'seg ' + cls;
+      seg.style.width = (count / health.total * 100) + '%';
+      seg.title = `${count} ${cls.replace('-', ' ')}`;
+      bar.appendChild(seg);
+    });
+  }
+  const legend = document.getElementById('snap-health-legend');
+  legend.innerHTML = '';
+  [
+    ['live', 'Live', '#10B981', health.tally['Live']],
+    ['ready', 'Ready', '#3B82F6', health.tally['Ready']],
+    ['in-progress', 'In progress', '#FBBF24', health.tally['In progress']],
+    ['not-started', 'Not started', '#d1d5db', health.tally['Not started']],
+    ['cancelled', 'Cancelled', '#dc2626', health.tally['Cancelled']]
+  ].forEach(([, label, color, count]) => {
+    if (count <= 0) return;
+    const item = document.createElement('span');
+    item.innerHTML = `<span class="swatch" style="background:${color}"></span>${label}: ${count}`;
+    legend.appendChild(item);
+  });
+}
+
+function escapeHTML(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ---------- Init ----------
 applyZoomButtonState();
 updateCancelledToggleLabel();
 (async () => {
   await loadStatus();
+  renderSnapshot();
   build();
 })();
 </script>
