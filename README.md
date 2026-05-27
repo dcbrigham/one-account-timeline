@@ -134,7 +134,7 @@ Open `index.html` directly via `file://` works for HTML/CSS preview, but `fetch(
 2. Edit `index.html`:
    - Add an entry to the `markets` array
    - Add a chip to the markets legend row
-   - Update `normalizeMarket()` if the market needs to merge with another (the way GB/IE merge into UK)
+   - Update `normalizeMarket()` if the market needs to merge with another (kept as a passthrough seam — historically GB/IE merged into UK in M1 Broadcast, consolidated into a single UK market May 2026)
 
 ### Add a new status value
 

@@ -167,8 +167,7 @@ body { padding: 20px 24px 40px; }
       <span class="chip" data-market="NL">NL</span>
       <span class="chip" data-market="DE">DE</span>
       <span class="chip" data-market="BE">BE</span>
-      <span class="chip" data-market="GB">GB</span>
-      <span class="chip" data-market="IE">IE</span>
+      <span class="chip" data-market="UK">UK</span>
       <span class="chip" data-market="FR">FR (C-O)</span>
       <span class="chip" data-market="IT">IT (C-O)</span>
     </div>
@@ -265,8 +264,7 @@ const markets = [
   { id: 'NL', name: 'Netherlands', users: '~383K', share: '53%', notes: [{ text: 'Connect broadcast central', cls: '' }, { text: 'Largest production load', cls: 'warn' }] },
   { id: 'DE', name: 'Germany', users: '~176K', share: '24%', notes: [{ text: 'DE T&C legal gating', cls: 'warn' }] },
   { id: 'BE', name: 'Belgium', users: '~75K', share: '10%', notes: [{ text: 'NL + FR dual-language', cls: '' }] },
-  { id: 'GB', name: 'Great Britain', users: '~39K', share: '5%', notes: [{ text: 'English only', cls: '' }] },
-  { id: 'IE', name: 'Ireland', users: '~25K', share: '3%', notes: [{ text: 'English only', cls: '' }] },
+  { id: 'UK', name: 'UK (GB + IE)', users: '~64K', share: '8%', notes: [{ text: 'English only', cls: '' }] },
   { id: 'FR', name: 'France (Connect-only)', users: '~18K', share: '3%', notes: [{ text: 'Minority within FR', cls: '' }] },
   { id: 'IT', name: 'Italy (Connect-only)', users: '~9K', share: '1%', notes: [{ text: 'Minority within IT', cls: '' }] }
 ];
@@ -339,8 +337,7 @@ const broadcastEvents = {
   // Others get optional treatment — show as muted single broadcast
   DE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All DE Connect-only', purpose: 'Optional under Model C. Decision pending DE Connect ops.' }],
   BE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All BE Connect-only', purpose: 'Optional. Dual-language consideration if used.', status: 'cancelled', cancellationReason: 'Demo cancellation — BE team decided against broadcast in M1 to test the cancelled state visual. Replace with real reason when actually cancelled.' }],
-  GB: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All GB Connect-only', purpose: 'Optional under Model C.' }],
-  IE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All IE Connect-only', purpose: 'Optional under Model C.' }],
+  UK: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All UK Connect-only', purpose: 'Optional under Model C.' }],
   FR: [],
   IT: []
 };
@@ -374,9 +371,10 @@ function movementFromDay(day) {
 }
 
 function normalizeMarket(marketId, channelId, movement) {
-  // Broadcast in M1 has separate GB and IE pages; everywhere else GB/IE merge into UK.
-  if (channelId === 'broadcast' && movement === 'M1') return marketId;
-  if (marketId === 'GB' || marketId === 'IE') return 'UK';
+  // UK is a single market id everywhere on the timeline and in Confluence.
+  // (Historically GB/IE were split in M1 Broadcast; consolidated May 2026 — no AMs/Sales to differentiate.)
+  // Keep this function as a passthrough seam so a future split (e.g. Spain vs LatAm)
+  // can be reintroduced here without touching the call sites.
   return marketId;
 }
 
