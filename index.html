@@ -360,13 +360,17 @@ const movements = [
   { id: 'c',  name: 'Phase C — Post-Cutoff Recovery',         startDay: 172, endDay: 261, color: 'rgba(124,58,237,0.07)' }
 ];
 
+// User counts and programme-share percentages used to live on each market object
+// and rendered into the market header (m-meta). They were moved off the public
+// page because this repo is public; the full per-market scope table now lives on
+// the Confluence parent page (3970269743 — "One Account: Launch Assets").
 const markets = [
-  { id: 'NL', name: 'Netherlands', users: '~383K', share: '53%', notes: [{ text: 'Connect broadcast central', cls: '' }, { text: 'Largest production load', cls: 'warn' }] },
-  { id: 'DE', name: 'Germany', users: '~176K', share: '24%', notes: [{ text: 'DE T&C legal gating', cls: 'warn' }] },
-  { id: 'BE', name: 'Belgium', users: '~75K', share: '10%', notes: [{ text: 'NL + FR dual-language', cls: '' }] },
-  { id: 'UK', name: 'UK (GB + IE)', users: '~64K', share: '8%', notes: [{ text: 'English only', cls: '' }] },
-  { id: 'FR', name: 'France (Connect-only)', users: '~18K', share: '3%', notes: [{ text: 'Minority within FR', cls: '' }] },
-  { id: 'IT', name: 'Italy (Connect-only)', users: '~9K', share: '1%', notes: [{ text: 'Minority within IT', cls: '' }] }
+  { id: 'NL', name: 'Netherlands',              notes: [{ text: 'Connect broadcast central', cls: '' }, { text: 'Largest production load', cls: 'warn' }] },
+  { id: 'DE', name: 'Germany',                  notes: [{ text: 'DE T&C legal gating', cls: 'warn' }] },
+  { id: 'BE', name: 'Belgium',                  notes: [{ text: 'NL + FR dual-language', cls: '' }] },
+  { id: 'UK', name: 'UK (GB + IE)',             notes: [{ text: 'English only', cls: '' }] },
+  { id: 'FR', name: 'France (Connect-only)',    notes: [{ text: 'Minority within FR', cls: '' }] },
+  { id: 'IT', name: 'Italy (Connect-only)',     notes: [{ text: 'Minority within IT', cls: '' }] }
 ];
 
 const channels = [
@@ -845,7 +849,6 @@ function buildMarketBlock(market) {
   header.innerHTML = `
     <div class="m-label">
       <div class="m-name">${market.id} — ${market.name}</div>
-      <div class="m-meta">${market.users} · ${market.share} of program</div>
     </div>
     <div class="m-notes">
       ${market.notes.map(n => `<span class="tag ${n.cls}">${n.text}</span>`).join('')}
