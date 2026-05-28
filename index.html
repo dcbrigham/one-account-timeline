@@ -289,7 +289,7 @@ body { padding: 20px 24px 40px; }
   <summary>How to read this chart</summary>
   <div class="disclosure-body footnote-block">
     <div style="font-size: 11px; color: #6b7280; line-height: 1.5;">
-      Each market row shows the campaign cadence per channel. Circles are discrete moments (a push send, an email send, a broadcast). Bars are continuous (in-app banner, Promocard, help centre) — segmented to show how the content pack changes between phases and movements. Diamonds mark cohort waves in Movement 1 (10% / +15% / +25% / +25% / +25% over the first 14 days). The diagonal-striped band is the August dead zone — no new comms ship, but the in-app banner stays live with the &ldquo;Coming 30 September&rdquo; holding state. The red vertical line marks today.
+      Each market row shows the campaign cadence per channel. Circles are discrete moments (a push send, an email send, a broadcast). Bars are continuous (in-app banner, Promocard, help centre) — segmented to show how the content pack changes between phases and movements. Phase B uses 4 push notifications + 3 emails per market — one push and one email in M1 (launch), two pushes and one email in M2 (benefit-led then deadline-led), one email and one push in M3 (escalation). Each wave narrows to non-converters. The diagonal-striped band is the August dead zone — no new comms ship, but the in-app banner stays live with the &ldquo;Coming 30 September&rdquo; holding state. The red vertical line marks today.
     </div>
     <div class="footnote"><strong>Phase A scope.</strong> Phase A uses only push, email, and in-app banner. No Promocard, Connect broadcast, LinkedIn, or app store presence in Phase A. Pulse 1 (~15 Jul) lands before HCPs check out for August; Pulse 2 (~3 Sep) is the post-holiday reintroduction with deadline foreshadowing.</div>
     <div class="footnote"><strong>Movement 3 note.</strong> Movement 3 messaging carries both consequence framing (&ldquo;you'll lose access if you don't migrate&rdquo;) and recovery information (&ldquo;here's what creating a new account will look like&rdquo;). This seeds Phase C so the cutoff isn't a surprise.</div>
@@ -388,28 +388,27 @@ const programChannels = [
 ];
 
 // Push/email event template — Phase A (Pulse 1 + Pulse 2) and Phase B (Movements 1–3)
+// Each event may declare `channels: ['push' | 'email']`. If omitted, the event renders on
+// both push and email tracks. `pageKeyChannel` overrides the default channel name used in
+// the Confluence page key — used for the two M2 pushes which live on separate leaves
+// (Push1 = benefit-led, Push2 = deadline-led).
 const discreteEvents = {
   a: [
     { day: 2, label: 'Pulse 1 — Pre-holiday awareness', cohort: 'All in-scope users', purpose: 'Informative only — no action possible yet. "Your app is getting a more secure login on 30 September." Tone: forward-looking, low-pressure. Lands before HCPs check out for August.' },
     { day: 52, label: 'Pulse 2 — Post-holiday reminder', cohort: 'All in-scope users', purpose: 'Reintroduces the change after August. Foreshadows the deadline. "Welcome back — starting 30 September you\'ll be asked to set up your new login. You\'ll have until [end-of-quarter date] to complete it."' }
   ],
   m1: [
-    { day: 79, label: 'Day 1 wave (10%)', cohort: '10% random cohort', purpose: 'Launch — first wave. Daily monitoring active. Pause triggers armed.', wave: true },
-    { day: 82, label: 'Day 3–4 wave (+15%)', cohort: '+15% → 25% total', purpose: 'Cohort expansion. Validate day-1 signals held.', wave: true },
-    { day: 86, label: 'Day 7 wave (+25%)', cohort: '+25% → 50% total', purpose: 'Confirm scaling. Test A/B winners from day-1.', wave: true },
-    { day: 89, label: 'Day 10 wave (+25%)', cohort: '+25% → 75% total', purpose: 'Continued expansion.', wave: true },
-    { day: 92, label: 'Day 14 wave (+25%)', cohort: '+25% → 100% coverage', purpose: 'Full proactive coverage reached.', wave: true }
+    { day: 80, label: 'Launch announcement', cohort: 'All Connect-only users', purpose: 'Thu 1 Oct 2026. Launch email: what, why, how. Welcoming, reassuring tone.', channels: ['email'] },
+    { day: 87, label: 'Mid-M1 nudge', cohort: 'All Connect-only users', purpose: 'Thu 8 Oct 2026. Mid-window push reminder. Welcoming, reassuring tone.', channels: ['push'] }
   ],
   m2: [
-    { day: 100, label: 'Active campaign #1', cohort: 'Non-converters', purpose: 'Helpful tone. Deadline-aware but not urgent. A/B variants per market.' },
-    { day: 114, label: 'Active campaign #2', cohort: 'Non-converters', purpose: 'Repeated touch. Use Movement 1 winning variants.' },
-    { day: 128, label: 'Active campaign #3', cohort: 'Non-converters', purpose: 'Final M2 push before escalation begins.' }
+    { day: 99, label: 'Benefit-led push (#1)', cohort: 'Non-converters', purpose: 'Tue 20 Oct 2026. Benefit-focused, motivating, action-oriented. First M2 push.', channels: ['push'], pageKeyChannel: 'Push1' },
+    { day: 113, label: 'Benefit case + friction handling', cohort: 'Non-converters', purpose: 'Tue 3 Nov 2026. Longer-form email: benefit case + friction handling. Addresses concerns.', channels: ['email'] },
+    { day: 136, label: 'Deadline-led push (#2)', cohort: 'Non-converters', purpose: 'Thu 26 Nov 2026. Direct, deadline-aware. Bridges into M3 escalation.', channels: ['push'], pageKeyChannel: 'Push2' }
   ],
   m3: [
-    { day: 141, label: '4-week warning', cohort: 'Non-migrators', purpose: 'Open escalation. Seeds consequence + recovery: "If you don\'t migrate by [date], you\'ll need to create a new account." First mention of Phase C recovery path.' },
-    { day: 155, label: '2-week warning', cohort: 'Non-migrators', purpose: 'Urgency rises. Reiterate consequence and recovery in plain language.' },
-    { day: 162, label: '1-week warning', cohort: 'Non-migrators', purpose: 'Last realistic action window. Legal sign-off per market on framing.' },
-    { day: 168, label: 'Final 48-hour push', cohort: 'Non-migrators', purpose: 'Last chance. Daily cadence acceptable in final 2 days. Recovery FAQ surfaced.' }
+    { day: 141, label: 'Formal final notice', cohort: 'Non-migrators', purpose: 'Tue 1 Dec 2026. Formal final-notice email. Urgent but supportive. Escalation with consequence + recovery path.', channels: ['email'] },
+    { day: 157, label: 'Last call', cohort: 'Non-migrators', purpose: 'Thu 17 Dec 2026. Last call before holiday wind-down. Direct, deadline-imminent.', channels: ['push'] }
   ]
 };
 
@@ -482,7 +481,7 @@ function normalizeMarket(marketId, channelId, movement) {
   return marketId;
 }
 
-function pageKeyFor(channelId, movement, marketId) {
+function pageKeyFor(channelId, movement, marketId, channelNameOverride = null) {
   // Program-wide channels
   if (channelId === 'linkedin') return 'Program-LinkedIn-Launch';
   if (channelId === 'appstore') return 'Program-AppStore';
@@ -490,7 +489,10 @@ function pageKeyFor(channelId, movement, marketId) {
     // Help centre is a per-market Phase C asset. Program-wide row aggregates all markets.
     return marketId && movement === 'C' ? `C-HelpCentre-${normalizeMarket(marketId, channelId, movement)}` : null;
   }
-  const channelName = { push: 'Push', email: 'Email', inapp: 'InApp', promocard: 'Promocard', broadcast: 'Broadcast' }[channelId];
+  // channelNameOverride lets a specific event force a non-default channel name
+  // (e.g. M2 split into Push1 + Push2 — both rendered on the "push" channel track
+  // but each maps to its own Confluence leaf page).
+  const channelName = channelNameOverride || { push: 'Push', email: 'Email', inapp: 'InApp', promocard: 'Promocard', broadcast: 'Broadcast' }[channelId];
   if (!channelName) return null;
   const m = normalizeMarket(marketId, channelId, movement);
   if (movement === 'A') return `A-${channelName}-${m}`;
@@ -725,7 +727,7 @@ function renderEvent(track, ev, channel, marketId) {
 
   // Determine page key — needed before cancellation check so Confluence Cancelled can override
   const movement = movementFromDay(ev.day);
-  const pageKey = pageKeyFor(channel.id, movement, marketId);
+  const pageKey = pageKeyFor(channel.id, movement, marketId, ev.pageKeyChannel);
   const confluenceCancelled = pageKey && confluenceStatus.pages?.[pageKey]?.rollup === 'Cancelled';
 
   const isCancelled = ev.status === 'cancelled' || confluenceCancelled;
@@ -824,7 +826,9 @@ function buildChannelTrack(channel, marketId) {
 
   if (channel.id === 'push' || channel.id === 'email') {
     ['a', 'm1', 'm2', 'm3'].forEach(mid => {
-      discreteEvents[mid].forEach(ev => renderEvent(track, ev, channel, marketId));
+      discreteEvents[mid]
+        .filter(ev => !ev.channels || ev.channels.includes(channel.id))
+        .forEach(ev => renderEvent(track, ev, channel, marketId));
     });
   } else if (channel.id === 'inapp' || channel.id === 'promocard') {
     renderBar(track, channel, marketId);
@@ -1201,9 +1205,13 @@ function computeNow(todayDay) {
   ['a', 'm1', 'm2', 'm3'].forEach(mid => {
     (discreteEvents[mid] || []).forEach(ev => {
       if (Math.abs(ev.day - todayDay) <= 3) {
+        const channelLabel = !ev.channels ? 'Push + Email'
+          : ev.channels.length === 2 ? 'Push + Email'
+          : ev.channels[0] === 'push' ? 'Push notification'
+          : 'Email';
         active.push({
           kind: 'event',
-          channel: 'Push + Email',
+          channel: channelLabel,
           label: ev.label,
           range: fmtDate(ev.day),
           offset: ev.day - todayDay
@@ -1242,10 +1250,14 @@ function computeNext(todayDay, n) {
     (discreteEvents[mid] || []).forEach(ev => {
       // Cohort waves are working-team detail; skip them in the stakeholder list.
       if (ev.wave) return;
+      const scope = !ev.channels ? 'Push + Email · all 6 markets'
+        : ev.channels.length === 2 ? 'Push + Email · all 6 markets'
+        : ev.channels[0] === 'push' ? 'Push notification · all 6 markets'
+        : 'Email · all 6 markets';
       milestones.push({
         day: ev.day,
         label: ev.label,
-        scope: 'Push + Email · all 6 markets',
+        scope,
         date: fmtDate(ev.day)
       });
     });
