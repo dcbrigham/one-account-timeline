@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:41:51.628Z",
+  "generatedAt": "2026-05-28T09:56:48.604Z",
   "parentId": "3970269743",
   "pageCount": 116,
   "pages": {
@@ -19,7 +19,12 @@
       "title": "OneAccount-B-M2-Push1-NL",
       "pageId": "3972268242",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972268242/OneAccount-B-M2-Push1-NL",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "Program-LinkedIn-Launch": {
@@ -222,21 +227,36 @@
       "title": "OneAccount-B-M3-Push-NL",
       "pageId": "3971874973",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971874973/OneAccount-B-M3-Push-NL",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Email-NL": {
       "title": "OneAccount-B-M3-Email-NL",
       "pageId": "3971809515",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971809515/OneAccount-B-M3-Email-NL",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Email-DE": {
       "title": "OneAccount-B-M3-Email-DE",
       "pageId": "3971809562",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971809562/OneAccount-B-M3-Email-DE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "German status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "A-Push-NL": {
@@ -303,7 +323,12 @@
       "title": "OneAccount-B-M3-Push-DE",
       "pageId": "3972300990",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972300990/OneAccount-B-M3-Push-DE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "German status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Promocard-DE": {
@@ -418,28 +443,48 @@
       "title": "OneAccount-B-M1-Email-NL",
       "pageId": "3971973173",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971973173/OneAccount-B-M1-Email-NL",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Email-NL": {
       "title": "OneAccount-B-M2-Email-NL",
       "pageId": "3971842172",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971842172/OneAccount-B-M2-Email-NL",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Push1-DE": {
       "title": "OneAccount-B-M2-Push1-DE",
       "pageId": "3971842148",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971842148/OneAccount-B-M2-Push1-DE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "German status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M1-Push-DE": {
       "title": "OneAccount-B-M1-Push-DE",
       "pageId": "3971842102",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971842102/OneAccount-B-M1-Push-DE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "German status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "C-HelpCentre-BE": {
@@ -546,14 +591,32 @@
       "title": "OneAccount-B-M3-Email-BE",
       "pageId": "3971711327",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971711327/OneAccount-B-M3-Email-BE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Push-BE": {
       "title": "OneAccount-B-M3-Push-BE",
       "pageId": "3972137149",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972137149/OneAccount-B-M3-Push-BE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-InApp-UK": {
@@ -572,14 +635,28 @@
       "title": "OneAccount-B-M2-Push1-BE",
       "pageId": "3972071591",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972071591/OneAccount-B-M2-Push1-BE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Email-DE": {
       "title": "OneAccount-B-M2-Email-DE",
       "pageId": "3971842193",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971842193/OneAccount-B-M2-Email-DE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "German status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "C-HelpCentre-UK": {
@@ -630,7 +707,16 @@
       "title": "OneAccount-B-M1-Push-BE",
       "pageId": "3972071531",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972071531/OneAccount-B-M1-Push-BE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Promocard-BE": {
@@ -717,7 +803,12 @@
       "title": "OneAccount-B-M2-Push1-UK",
       "pageId": "3972137085",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972137085/OneAccount-B-M2-Push1-UK",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "A-InApp-FR": {
@@ -776,14 +867,24 @@
       "title": "OneAccount-B-M2-Push1-FR",
       "pageId": "3972169870",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972169870/OneAccount-B-M2-Push1-FR",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M1-Email-DE": {
       "title": "OneAccount-B-M1-Email-DE",
       "pageId": "3971579984",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971579984/OneAccount-B-M1-Email-DE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "German status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-InApp-FR": {
@@ -802,7 +903,16 @@
       "title": "OneAccount-B-M2-Email-BE",
       "pageId": "3971580015",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971580015/OneAccount-B-M2-Email-BE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Promocard-UK": {
@@ -845,7 +955,16 @@
       "title": "OneAccount-B-M1-Email-BE",
       "pageId": "3972366529",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972366529/OneAccount-B-M1-Email-BE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "A-Email-FR": {
@@ -864,14 +983,24 @@
       "title": "OneAccount-B-M3-Push-UK",
       "pageId": "3972399317",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972399317/OneAccount-B-M3-Push-UK",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Push1-IT": {
       "title": "OneAccount-B-M2-Push1-IT",
       "pageId": "3971678267",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971678267/OneAccount-B-M2-Push1-IT",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Italian status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "C-InApp-UK": {
@@ -918,7 +1047,12 @@
       "title": "OneAccount-B-M3-Email-UK",
       "pageId": "3972202829",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972202829/OneAccount-B-M3-Email-UK",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "C-InApp-FR": {
@@ -949,7 +1083,12 @@
       "title": "OneAccount-B-M1-Email-UK",
       "pageId": "3971711177",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971711177/OneAccount-B-M1-Email-UK",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Promocard-UK": {
@@ -968,7 +1107,12 @@
       "title": "OneAccount-B-M1-Push-UK",
       "pageId": "3972202691",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972202691/OneAccount-B-M1-Push-UK",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "A-InApp-IT": {
@@ -1035,14 +1179,24 @@
       "title": "OneAccount-B-M2-Email-UK",
       "pageId": "3972333749",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972333749/OneAccount-B-M2-Email-UK",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Email-FR": {
       "title": "OneAccount-B-M3-Email-FR",
       "pageId": "3971547426",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971547426/OneAccount-B-M3-Email-FR",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "A-Push-FR": {
@@ -1061,7 +1215,12 @@
       "title": "OneAccount-B-M1-Push-FR",
       "pageId": "3972268157",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972268157/OneAccount-B-M1-Push-FR",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Promocard-FR": {
@@ -1080,14 +1239,24 @@
       "title": "OneAccount-B-M1-Push-IT",
       "pageId": "3971842123",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971842123/OneAccount-B-M1-Push-IT",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Italian status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Push-FR": {
       "title": "OneAccount-B-M3-Push-FR",
       "pageId": "3971580052",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971580052/OneAccount-B-M3-Push-FR",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-InApp-UK": {
@@ -1118,7 +1287,12 @@
       "title": "OneAccount-B-M2-Email-FR",
       "pageId": "3972169896",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972169896/OneAccount-B-M2-Email-FR",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Promocard-IT": {
@@ -1137,14 +1311,24 @@
       "title": "OneAccount-B-M3-Email-IT",
       "pageId": "3971711348",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971711348/OneAccount-B-M3-Email-IT",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Italian status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Push2-NL": {
       "title": "OneAccount-B-M2-Push2-NL",
       "pageId": "3985539458",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3985539458/OneAccount-B-M2-Push2-NL",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "A-Push-IT": {
@@ -1175,28 +1359,52 @@
       "title": "OneAccount-B-M2-Push2-DE",
       "pageId": "3985768692",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3985768692/OneAccount-B-M2-Push2-DE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "German status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M1-Email-FR": {
       "title": "OneAccount-B-M1-Email-FR",
       "pageId": "3972137020",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972137020/OneAccount-B-M1-Email-FR",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Push2-BE": {
       "title": "OneAccount-B-M2-Push2-BE",
       "pageId": "3985637692",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3985637692/OneAccount-B-M2-Push2-BE",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M3-Push-IT": {
       "title": "OneAccount-B-M3-Push-IT",
       "pageId": "3972137171",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972137171/OneAccount-B-M3-Push-IT",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Italian status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Promocard-IT": {
@@ -1215,14 +1423,24 @@
       "title": "OneAccount-B-M1-Email-IT",
       "pageId": "3972300923",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3972300923/OneAccount-B-M1-Email-IT",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Italian status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Email-IT": {
       "title": "OneAccount-B-M2-Email-IT",
       "pageId": "3971809464",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971809464/OneAccount-B-M2-Email-IT",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Italian status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-InApp-FR": {
@@ -1241,7 +1459,12 @@
       "title": "OneAccount-B-M2-Push2-UK",
       "pageId": "3986227498",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3986227498/OneAccount-B-M2-Push2-UK",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-InApp-IT": {
@@ -1260,14 +1483,24 @@
       "title": "OneAccount-B-M2-Push2-FR",
       "pageId": "3985768714",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3985768714/OneAccount-B-M2-Push2-FR",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     },
     "B-M2-Push2-IT": {
       "title": "OneAccount-B-M2-Push2-IT",
       "pageId": "3986129204",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3986129204/OneAccount-B-M2-Push2-IT",
-      "statuses": [],
+      "statuses": [
+        {
+          "label": "Italian status",
+          "value": "Not started"
+        }
+      ],
       "rollup": "Not started"
     }
   }
