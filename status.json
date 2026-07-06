@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T08:58:59.457Z",
+  "generatedAt": "2026-07-06T13:51:16.013Z",
   "parentId": "3970269743",
   "pageCount": 116,
   "pages": {
@@ -110,10 +110,10 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "In progress"
+          "value": "ready"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "A-InApp-NL": {
       "title": "OneAccount-A-InApp-NL",
@@ -542,10 +542,10 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "In progress"
+          "value": "ready"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-Promocard-DE": {
       "title": "OneAccount-B-M1-Promocard-DE",
