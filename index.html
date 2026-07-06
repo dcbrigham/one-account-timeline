@@ -189,7 +189,7 @@ body { padding: 20px 24px 40px; }
 
 <div class="header">
   <h1>One Account migration — campaign timeline</h1>
-  <div class="tagline">A live view of every comm scheduled across the migration window (13 Jul 2026 → 31 Mar 2027). Statuses sync daily from Confluence.</div>
+  <div class="tagline">A live view of every comm scheduled across the migration window (13 Jul 2026 → 30 Apr 2027). Statuses sync daily from Confluence.</div>
 </div>
 
 <section class="snapshot" aria-label="Stakeholder snapshot">
@@ -289,13 +289,13 @@ body { padding: 20px 24px 40px; }
   <summary>How to read this chart</summary>
   <div class="disclosure-body footnote-block">
     <div style="font-size: 11px; color: #6b7280; line-height: 1.5;">
-      Each market row shows the campaign cadence per channel. Circles are discrete moments (a push send, an email send, a broadcast). Bars are continuous (in-app banner, Promocard, help centre) — segmented to show how the content pack changes between phases and movements. Phase B uses 4 push notifications + 3 emails per market — one push and one email in M1 (launch), two pushes and one email in M2 (benefit-led then deadline-led), one email and one push in M3 (escalation). Each wave narrows to non-converters. The diagonal-striped band is the August dead zone — no new comms ship, but the in-app banner stays live with the &ldquo;Coming 30 September&rdquo; holding state. The red vertical line marks today.
+      Each market row shows the campaign cadence per channel. Circles are discrete moments (a push send, an email send, a broadcast). Bars are continuous (in-app banner, Promocard, help centre) — segmented to show how the content pack changes between phases and movements. Phase B uses 4 push notifications + 3 emails per market — one push and one email in M1 (launch), two pushes and one email in M2 (benefit-led then deadline-led), one email and one push in M3 (escalation). Each wave narrows to non-converters. The diagonal-striped bands are the two dead zones — August (HCP summer holiday) and 21 Dec → 3 Jan (Christmas / New Year). No new comms ship in either window, but the in-app banner stays live with &ldquo;Coming 26 October&rdquo; (in August) and the M2 content pack (over Christmas). The red vertical line marks today.
     </div>
-    <div class="footnote"><strong>Phase A scope.</strong> Phase A uses only push, email, and in-app banner. No Promocard, Connect broadcast, LinkedIn, or app store presence in Phase A. Pulse 1 (~15 Jul) lands before HCPs check out for August; Pulse 2 (~3 Sep) is the post-holiday reintroduction with deadline foreshadowing.</div>
+    <div class="footnote"><strong>Phase A scope.</strong> Phase A uses only push, email, and in-app banner. No Promocard, Connect broadcast, LinkedIn, or app store presence in Phase A. Pulse 1 (~15 Jul) lands before HCPs check out for August; Pulse 2 (24 Sep) confirms the 26 October launch and sets expectations — deliberately late enough to clear the busy early-September comms period, and close enough to launch that recall holds.</div>
     <div class="footnote"><strong>Movement 3 note.</strong> Movement 3 messaging carries both consequence framing (&ldquo;you'll lose access if you don't migrate&rdquo;) and recovery information (&ldquo;here's what creating a new account will look like&rdquo;). This seeds Phase C so the cutoff isn't a surprise.</div>
     <div class="footnote"><strong>Phase C scope.</strong> Phase C is CS-led and reactive — no scheduled push, email, broadcast, or Promocard. The active surfaces are the in-app &ldquo;locked-out&rdquo; message (visible to users who attempt to log in with old credentials) and the help-centre article / public FAQ (live throughout Phase B as a passive seed, promoted in M3, featured in C). Push/email/Promocard/broadcast lanes are intentionally empty in Phase C.</div>
     <div class="footnote"><strong>Cancelled campaigns.</strong> Campaigns marked as cancelled appear muted with a red strikethrough (markers) or hashed pattern (bars). The tooltip surfaces the cancellation reason. Toggle &ldquo;Hide cancelled&rdquo; in the filter bar to remove them from view entirely.</div>
-    <div class="footnote"><strong>Placeholder dates.</strong> Pulse 1 (15 Jul) and Pulse 2 (3 Sep) are working dates. Phase C end (31 Mar 2027) covers the Q1 retro window — adjust if the wrap-up timeline differs.</div>
+    <div class="footnote"><strong>Placeholder dates.</strong> Pulse 1 (~15 Jul) and Pulse 2 (24 Sep) are working dates. Launch (26 Oct 2026) is the optimistic go-live; cutoff (31 Jan 2027) is the working end-of-Phase-B date. Phase C end (30 Apr 2027) covers the ~3-month post-cutoff recovery window — adjust if the wrap-up timeline differs.</div>
   </div>
 </details>
 
@@ -304,12 +304,14 @@ body { padding: 20px 24px 40px; }
 <script>
 // ---------- Data ----------
 const START = new Date('2026-07-13'); // Monday — Phase A Pulse 1 ships ~15 Jul
-const END = new Date('2027-03-31');
-const TOTAL_DAYS = Math.round((END - START) / 86400000); // 261
-const LAUNCH_DAY = 79;  // 30 September 2026 — Phase B Movement 1 begins
-const CUTOFF_DAY = 171; // 31 December 2026 — Phase B ends, Phase C begins
+const END = new Date('2027-04-30');
+const TOTAL_DAYS = Math.round((END - START) / 86400000); // 291
+const LAUNCH_DAY = 105; // 26 October 2026 — Phase B Movement 1 begins
+const CUTOFF_DAY = 202; // 31 January 2027 — Phase B ends, Phase C begins
 const AUGUST_START = 19; // 1 Aug
 const AUGUST_END = 49;   // 31 Aug
+const CHRISTMAS_START = 161; // Mon 21 Dec 2026 — start of Xmas dead zone
+const CHRISTMAS_END = 174;   // Sun 3 Jan 2027 — end of Xmas dead zone
 
 function dayOf(date) { return Math.round((new Date(date) - START) / 86400000); }
 function pct(day) {
@@ -353,11 +355,11 @@ function renderTodayLine(track, opts) {
 }
 
 const movements = [
-  { id: 'a',  name: 'Phase A — Pre-Migration Awareness',      startDay: 0,   endDay: 78,  color: 'rgba(16,185,129,0.07)' },
-  { id: 'm1', name: 'Phase B/M1 — Launch & Cohort Expansion', startDay: 79,  endDay: 92,  color: 'rgba(79,70,229,0.08)' },
-  { id: 'm2', name: 'Phase B/M2 — Active Campaign',           startDay: 93,  endDay: 140, color: 'rgba(0,0,0,0.03)' },
-  { id: 'm3', name: 'Phase B/M3 — Escalation',                startDay: 141, endDay: 171, color: 'rgba(220,38,38,0.07)' },
-  { id: 'c',  name: 'Phase C — Post-Cutoff Recovery',         startDay: 172, endDay: 261, color: 'rgba(124,58,237,0.07)' }
+  { id: 'a',  name: 'Phase A — Pre-Migration Awareness',      startDay: 0,   endDay: 104, color: 'rgba(16,185,129,0.07)' },
+  { id: 'm1', name: 'Phase B/M1 — Launch & Cohort Expansion', startDay: 105, endDay: 121, color: 'rgba(79,70,229,0.08)' },
+  { id: 'm2', name: 'Phase B/M2 — Active Campaign',           startDay: 122, endDay: 174, color: 'rgba(0,0,0,0.03)' },
+  { id: 'm3', name: 'Phase B/M3 — Escalation',                startDay: 175, endDay: 202, color: 'rgba(220,38,38,0.07)' },
+  { id: 'c',  name: 'Phase C — Post-Cutoff Recovery',         startDay: 203, endDay: 291, color: 'rgba(124,58,237,0.07)' }
 ];
 
 // User counts and programme-share percentages used to live on each market object
@@ -394,63 +396,63 @@ const programChannels = [
 // (Push1 = benefit-led, Push2 = deadline-led).
 const discreteEvents = {
   a: [
-    { day: 2, label: 'Pulse 1 — Pre-holiday awareness', cohort: 'All in-scope users', purpose: 'Informative only — no action possible yet. "Your app is getting a more secure login on 30 September." Tone: forward-looking, low-pressure. Lands before HCPs check out for August.' },
-    { day: 52, label: 'Pulse 2 — Post-holiday reminder', cohort: 'All in-scope users', purpose: 'Reintroduces the change after August. Foreshadows the deadline. "Welcome back — starting 30 September you\'ll be asked to set up your new login. You\'ll have until [end-of-quarter date] to complete it."' }
+    { day: 2, label: 'Pulse 1 — Pre-holiday awareness', cohort: 'All in-scope users', purpose: 'Informative only — no action possible yet. "Your app is getting a more secure login on 26 October." Tone: forward-looking, low-pressure. Lands before HCPs check out for August.' },
+    { day: 73, label: 'Pulse 2 — Launch confirmed', cohort: 'All in-scope users', purpose: 'Thu 24 Sep 2026. Confirms the 26 October launch and sets expectations. "Your new login goes live on 26 October — here\'s what to expect. You\'ll have until [end-of-January] to set it up." Landing 4.5 weeks pre-launch: past the busy early-September comms wave, close enough that recall holds.' }
   ],
   m1: [
-    { day: 80, label: 'Launch announcement', cohort: 'All Connect-only users', purpose: 'Thu 1 Oct 2026. Launch email: what, why, how. Welcoming, reassuring tone.', channels: ['email'] },
-    { day: 87, label: 'Mid-M1 nudge', cohort: 'All Connect-only users', purpose: 'Thu 8 Oct 2026. Mid-window push reminder. Welcoming, reassuring tone.', channels: ['push'] }
+    { day: 108, label: 'Launch announcement', cohort: 'All Connect-only users', purpose: 'Thu 29 Oct 2026. Launch email: what, why, how. Welcoming, reassuring tone.', channels: ['email'] },
+    { day: 115, label: 'Mid-M1 nudge', cohort: 'All Connect-only users', purpose: 'Thu 5 Nov 2026. Mid-window push reminder. Welcoming, reassuring tone.', channels: ['push'] }
   ],
   m2: [
-    { day: 99, label: 'Benefit-led push (#1)', cohort: 'Non-converters', purpose: 'Tue 20 Oct 2026. Benefit-focused, motivating, action-oriented. First M2 push.', channels: ['push'], pageKeyChannel: 'Push1' },
-    { day: 113, label: 'Benefit case + friction handling', cohort: 'Non-converters', purpose: 'Tue 3 Nov 2026. Longer-form email: benefit case + friction handling. Addresses concerns.', channels: ['email'] },
-    { day: 136, label: 'Deadline-led push (#2)', cohort: 'Non-converters', purpose: 'Thu 26 Nov 2026. Direct, deadline-aware. Bridges into M3 escalation.', channels: ['push'], pageKeyChannel: 'Push2' }
+    { day: 127, label: 'Benefit-led push (#1)', cohort: 'Non-converters', purpose: 'Tue 17 Nov 2026. Benefit-focused, motivating, action-oriented. First M2 push.', channels: ['push'], pageKeyChannel: 'Push1' },
+    { day: 141, label: 'Benefit case + friction handling', cohort: 'Non-converters', purpose: 'Tue 1 Dec 2026. Longer-form email: benefit case + friction handling. Addresses concerns.', channels: ['email'] },
+    { day: 157, label: 'Deadline-led push (#2)', cohort: 'Non-converters', purpose: 'Thu 17 Dec 2026. Direct, deadline-aware. Last comm before the Christmas dead zone. Bridges into M3 escalation.', channels: ['push'], pageKeyChannel: 'Push2' }
   ],
   m3: [
-    { day: 141, label: 'Formal final notice', cohort: 'Non-migrators', purpose: 'Tue 1 Dec 2026. Formal final-notice email. Urgent but supportive. Escalation with consequence + recovery path.', channels: ['email'] },
-    { day: 157, label: 'Last call', cohort: 'Non-migrators', purpose: 'Thu 17 Dec 2026. Last call before holiday wind-down. Direct, deadline-imminent.', channels: ['push'] }
+    { day: 176, label: 'Formal final notice', cohort: 'Non-migrators', purpose: 'Tue 5 Jan 2027. Formal final-notice email — first comm after the Christmas break. Urgent but supportive. Escalation with consequence + recovery path.', channels: ['email'] },
+    { day: 192, label: 'Last call', cohort: 'Non-migrators', purpose: 'Thu 21 Jan 2027. Last call before cutoff. Direct, deadline-imminent.', channels: ['push'] }
   ]
 };
 
 // Continuous bar template (in-app banner has Phase A segments; Promocard is Phase B only)
 const continuousBars = {
   inapp: [
-    { startDay: 2,   endDay: 18,  label: 'Phase A — Pulse 1 banner', movement: 'A',  purpose: 'Pre-holiday awareness banner. Persistent surface. Reads as "A change is coming on 30 September." Includes the "Coming 30 September" holding state for users who try to act early.' },
-    { startDay: 19,  endDay: 51,  label: 'August holding state', movement: 'A', purpose: 'August non-working month. No new active push/email comms, but the banner stays live with "Coming 30 September" content so users who open Connect in August still see it.' },
-    { startDay: 52,  endDay: 78,  label: 'Phase A — Pulse 2 banner', movement: 'A',  purpose: 'Post-holiday reminder banner. Foreshadows the deadline. "Starting 30 September you\'ll be asked to set up your new login."' },
-    { startDay: 79,  endDay: 92,  label: 'M1 content pack', movement: 'M1', purpose: 'Welcoming, reassuring. "Set up your secure login."' },
-    { startDay: 93,  endDay: 140, label: 'M2 content pack', movement: 'M2', purpose: 'Helpful, deadline-aware. Includes deadline date.' },
-    { startDay: 141, endDay: 171, label: 'M3 content pack', movement: 'M3', purpose: 'Direct. Consequence framing + recovery path. Final-week countdown.' },
-    { startDay: 172, endDay: 261, label: 'Phase C — Locked-out message', movement: 'C', purpose: 'Persistent in-app message for any user who attempts to log in with old credentials after cutoff. Explains the account has closed, links to the help-centre article, and points to the new sign-up flow. Reactive only — not pushed to anyone.' }
+    { startDay: 2,   endDay: 18,  label: 'Phase A — Pulse 1 banner', movement: 'A',  purpose: 'Pre-holiday awareness banner. Persistent surface. Reads as "A change is coming on 26 October." Includes the "Coming 26 October" holding state for users who try to act early.' },
+    { startDay: 19,  endDay: 49,  label: 'August holding state', movement: 'A', purpose: 'August non-working month. No new active push/email comms, but the banner stays live with "Coming 26 October" content so users who open Connect in August still see it.' },
+    { startDay: 50,  endDay: 104, label: 'Phase A — Pulse 2 + pre-launch banner', movement: 'A',  purpose: 'September–October build-up banner. Persistent through Pulse 2 (24 Sep) and the runway to launch. "Coming 26 October — set up your new login" with a shortening countdown as launch approaches.' },
+    { startDay: 105, endDay: 121, label: 'M1 content pack', movement: 'M1', purpose: 'Welcoming, reassuring. "Set up your secure login."' },
+    { startDay: 122, endDay: 174, label: 'M2 content pack', movement: 'M2', purpose: 'Helpful, deadline-aware. Includes deadline date. Stays live through the Christmas dead zone.' },
+    { startDay: 175, endDay: 202, label: 'M3 content pack', movement: 'M3', purpose: 'Direct. Consequence framing + recovery path. Final-week countdown.' },
+    { startDay: 203, endDay: 291, label: 'Phase C — Locked-out message', movement: 'C', purpose: 'Persistent in-app message for any user who attempts to log in with old credentials after cutoff. Explains the account has closed, links to the help-centre article, and points to the new sign-up flow. Reactive only — not pushed to anyone.' }
   ],
   promocard: [
-    { startDay: 79,  endDay: 92,  label: 'M1 content pack', movement: 'M1', purpose: 'Welcoming, reassuring. "Set up your secure login."' },
-    { startDay: 93,  endDay: 140, label: 'M2 content pack', movement: 'M2', purpose: 'Helpful, deadline-aware. Includes deadline date.' },
-    { startDay: 141, endDay: 171, label: 'M3 content pack', movement: 'M3', purpose: 'Direct. Consequence framing + recovery path. Final-week countdown.' }
+    { startDay: 105, endDay: 121, label: 'M1 content pack', movement: 'M1', purpose: 'Welcoming, reassuring. "Set up your secure login."' },
+    { startDay: 122, endDay: 174, label: 'M2 content pack', movement: 'M2', purpose: 'Helpful, deadline-aware. Includes deadline date. Stays live through the Christmas dead zone.' },
+    { startDay: 175, endDay: 202, label: 'M3 content pack', movement: 'M3', purpose: 'Direct. Consequence framing + recovery path. Final-week countdown.' }
   ]
 };
 
 // Connect broadcast — primarily NL
 const broadcastEvents = {
   NL: [
-    { day: 79,  label: 'Launch broadcast', cohort: 'All NL Connect-only', purpose: 'Day 1 hero broadcast. Highest-reach NL surface. A/B subject.' },
-    { day: 128, label: 'Mid-campaign reminder', cohort: 'NL non-converters', purpose: 'M2 nudge via Connect broadcast.' },
-    { day: 162, label: 'Final reminder broadcast', cohort: 'NL non-migrators', purpose: 'M3 escalation moment. Pairs with 1-week warning.' }
+    { day: 105, label: 'Launch broadcast', cohort: 'All NL Connect-only', purpose: 'Mon 26 Oct 2026. Day 1 hero broadcast. Highest-reach NL surface. A/B subject.' },
+    { day: 154, label: 'Mid-campaign reminder', cohort: 'NL non-converters', purpose: 'Mon 14 Dec 2026. M2 nudge via Connect broadcast. Sits between the M2 email (1 Dec) and Push2 (17 Dec).' },
+    { day: 197, label: 'Final reminder broadcast', cohort: 'NL non-migrators', purpose: 'Tue 26 Jan 2027. M3 escalation moment — 5 days before cutoff. Pairs with the last-call push.' }
   ],
   // Others get optional treatment — show as muted single broadcast
-  DE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All DE Connect-only', purpose: 'Optional under Model C. Decision pending DE Connect ops.' }],
-  BE: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All BE Connect-only', purpose: 'Optional. Dual-language consideration if used.' }],
-  UK: [{ day: 79, label: 'Launch broadcast (optional)', cohort: 'All UK Connect-only', purpose: 'Optional under Model C.' }],
+  DE: [{ day: 105, label: 'Launch broadcast (optional)', cohort: 'All DE Connect-only', purpose: 'Mon 26 Oct 2026. Optional under Model C. Decision pending DE Connect ops.' }],
+  BE: [{ day: 105, label: 'Launch broadcast (optional)', cohort: 'All BE Connect-only', purpose: 'Mon 26 Oct 2026. Optional. Dual-language consideration if used.' }],
+  UK: [{ day: 105, label: 'Launch broadcast (optional)', cohort: 'All UK Connect-only', purpose: 'Mon 26 Oct 2026. Optional under Model C.' }],
   FR: [],
   IT: []
 };
 
 const programEvents = {
   linkedin: [
-    { day: 79, label: 'LinkedIn launch post', cohort: 'Public', purpose: 'One-off program-level announcement. Cross-market. Drafted by program comms lead. Phase B only — no Phase A LinkedIn presence per v5 doc.' }
+    { day: 105, label: 'LinkedIn launch post', cohort: 'Public', purpose: 'Mon 26 Oct 2026. One-off program-level announcement. Cross-market. Drafted by program comms lead. Phase B only — no Phase A LinkedIn presence per v5 doc.' }
   ],
   appstore: [
-    { day: 79, label: 'App store copy update', cohort: 'Anyone discovering Connect', purpose: 'Updated once at launch. Mentions secure login. Not hero. Persists through window.' }
+    { day: 105, label: 'App store copy update', cohort: 'Anyone discovering Connect', purpose: 'Mon 26 Oct 2026. Updated once at launch. Mentions secure login. Not hero. Persists through window.' }
   ]
 };
 
@@ -466,10 +468,10 @@ let confluenceStatus = { pages: {} };
 const STATUS_RANK = { 'Not started': 0, 'In progress': 1, 'Ready': 2, 'Live': 3 };
 
 function movementFromDay(day) {
-  if (day <= 78) return 'A';
-  if (day <= 92) return 'M1';
-  if (day <= 140) return 'M2';
-  if (day <= 171) return 'M3';
+  if (day <= 104) return 'A';
+  if (day <= 121) return 'M1';
+  if (day <= 174) return 'M2';
+  if (day <= 202) return 'M3';
   return 'C';
 }
 
@@ -661,31 +663,28 @@ function buildAxis() {
     { day: 19,  label: '1 Aug' },
     { day: 49,  label: '31 Aug' },
     { day: 50,  label: '1 Sep' },
-    { day: 52,  label: '3 Sep · Pulse 2' },
-    { day: 79,  label: '30 Sep · Launch' },
-    { day: 81,  label: '1 Oct' },
-    { day: 86,  label: '6 Oct' },
-    { day: 92,  label: '13 Oct' },
-    { day: 100, label: '21 Oct' },
+    { day: 73,  label: '24 Sep · Pulse 2' },
+    { day: 80,  label: '1 Oct' },
+    { day: 105, label: '26 Oct · Launch' },
     { day: 111, label: '1 Nov' },
-    { day: 114, label: '4 Nov' },
-    { day: 128, label: '18 Nov' },
-    { day: 140, label: '30 Nov' },
-    { day: 141, label: '1 Dec · M3' },
-    { day: 155, label: '15 Dec' },
-    { day: 162, label: '22 Dec' },
-    { day: 168, label: '28 Dec' },
-    { day: 171, label: '31 Dec · Cutoff' },
-    { day: 172, label: '1 Jan · Phase C' },
+    { day: 122, label: '12 Nov · M2' },
+    { day: 141, label: '1 Dec' },
+    { day: 157, label: '17 Dec · Push2' },
+    { day: 161, label: '21 Dec · Xmas' },
+    { day: 174, label: '3 Jan' },
+    { day: 175, label: '4 Jan · M3' },
     { day: 186, label: '15 Jan' },
-    { day: 203, label: '1 Feb' },
+    { day: 202, label: '31 Jan · Cutoff' },
+    { day: 203, label: '1 Feb · Phase C' },
     { day: 217, label: '15 Feb' },
     { day: 231, label: '1 Mar' },
     { day: 245, label: '15 Mar' },
-    { day: 261, label: '31 Mar' }
+    { day: 261, label: '31 Mar' },
+    { day: 262, label: '1 Apr' },
+    { day: 291, label: '30 Apr' }
   ];
   // For full view, show only major markers; for zoomed views show finer granularity
-  const fullViewMajor = [0, 2, 19, 52, 79, 111, 141, 171, 172, 203, 231, 261];
+  const fullViewMajor = [0, 2, 19, 73, 105, 122, 161, 175, 202, 203, 231, 261, 291];
   const ticksToShow = state.zoom === 'all'
     ? allTicks.filter(t => fullViewMajor.includes(t.day))
     : allTicks.filter(t => inView(t.day));
@@ -705,21 +704,36 @@ function buildAxis() {
   chart.appendChild(axis);
 }
 
+// Generic dead-zone overlay renderer — used for August and the Christmas/NY window.
+// Reuses the .august-overlay class for its striped visual style.
+function renderDeadZoneOverlay(track, startDay, endDay, tooltip) {
+  if (endDay < state.viewStart || startDay > state.viewEnd) return;
+  const clipStart = Math.max(startDay, state.viewStart);
+  const clipEnd = Math.min(endDay, state.viewEnd);
+  const el = document.createElement('div');
+  el.className = 'august-overlay';
+  el.style.left = pct(clipStart) + '%';
+  el.style.width = (pct(clipEnd) - pct(clipStart)) + '%';
+  el.dataset.tooltip = JSON.stringify(tooltip);
+  track.appendChild(el);
+}
+
 function renderAugustOverlay(track) {
-  if (AUGUST_END < state.viewStart || AUGUST_START > state.viewEnd) return;
-  const clipStart = Math.max(AUGUST_START, state.viewStart);
-  const clipEnd = Math.min(AUGUST_END, state.viewEnd);
-  const aug = document.createElement('div');
-  aug.className = 'august-overlay';
-  aug.style.left = pct(clipStart) + '%';
-  aug.style.width = (pct(clipEnd) - pct(clipStart)) + '%';
-  aug.dataset.tooltip = JSON.stringify({
+  renderDeadZoneOverlay(track, AUGUST_START, AUGUST_END, {
     title: 'August — non-working month',
     meta: '1 Aug → 31 Aug',
-    detail: 'No new active push or email comms. HCPs are on holiday (FR, IT, DE especially); internal stakeholders are also off. The in-app banner stays live with "Coming 30 September" holding-state content so users who do open Connect still see the message.',
+    detail: 'No new active push or email comms. HCPs are on holiday (FR, IT, DE especially); internal stakeholders are also off. The in-app banner stays live with "Coming 26 October" holding-state content so users who do open Connect still see the message.',
     cohort: 'All in-scope markets'
   });
-  track.appendChild(aug);
+}
+
+function renderChristmasOverlay(track) {
+  renderDeadZoneOverlay(track, CHRISTMAS_START, CHRISTMAS_END, {
+    title: 'Christmas / New Year — dead zone',
+    meta: '21 Dec 2026 → 3 Jan 2027',
+    detail: 'No new active push or email comms. HCPs off for the last week of December + New Year; internal stakeholders also off. The in-app banner stays live with the M2 content pack so users who open Connect still see the deadline messaging. M2 Push2 (17 Dec) is the last comm before this window; M3 formal notice (5 Jan) is the first after.',
+    cohort: 'All in-scope markets'
+  });
 }
 
 function renderEvent(track, ev, channel, marketId) {
@@ -823,6 +837,7 @@ function buildChannelTrack(channel, marketId) {
     track.appendChild(band);
   });
   renderAugustOverlay(track);
+  renderChristmasOverlay(track);
 
   if (channel.id === 'push' || channel.id === 'email') {
     ['a', 'm1', 'm2', 'm3'].forEach(mid => {
@@ -933,9 +948,9 @@ function buildProgramBlock() {
     } else if (channel.id === 'helpcentre') {
       // Three segments: passive seed through B/M1+M2, promoted in B/M3, featured in C
       const segs = [
-        { startDay: 79,  endDay: 140, label: 'Live — passive seed (B/M1+M2)', opacity: 0.35, detail: 'Help-centre article published and live, but not promoted. Users who go looking will find it. No links in marketing comms yet.' },
-        { startDay: 141, endDay: 171, label: 'Promoted in M3 messaging', opacity: 0.7, detail: 'M3 escalation comms link to the article ("here\'s what creating a new account will look like"). Article surfaces in CS scripts.' },
-        { startDay: 172, endDay: 261, label: 'Featured in Phase C recovery', opacity: 1, detail: 'Article is the primary recovery asset for locked-out users. Public-facing FAQ is featured. CS scripts route here first.' }
+        { startDay: 105, endDay: 174, label: 'Live — passive seed (B/M1+M2)', opacity: 0.35, detail: 'Help-centre article published and live, but not promoted. Users who go looking will find it. No links in marketing comms yet.' },
+        { startDay: 175, endDay: 202, label: 'Promoted in M3 messaging', opacity: 0.7, detail: 'M3 escalation comms link to the article ("here\'s what creating a new account will look like"). Article surfaces in CS scripts.' },
+        { startDay: 203, endDay: 291, label: 'Featured in Phase C recovery', opacity: 1, detail: 'Article is the primary recovery asset for locked-out users. Public-facing FAQ is featured. CS scripts route here first.' }
       ];
       const helpCentrePageKeys = ['NL','DE','BE','UK','FR','IT'].map(m => `C-HelpCentre-${m}`);
       segs.forEach(seg => {
