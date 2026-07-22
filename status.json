@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T07:31:01.945Z",
+  "generatedAt": "2026-07-22T07:32:46.281Z",
   "parentId": "3970269743",
   "pageCount": 116,
   "pages": {
@@ -62,10 +62,10 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "In progress"
+          "value": "LIVE"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M3-Broadcast-NL": {
       "title": "OneAccount-B-M3-Broadcast-NL",
@@ -110,7 +110,7 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "ready"
+          "value": "LIVE"
         }
       ],
       "rollup": "Not started"
@@ -122,10 +122,10 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "In progress"
+          "value": "READY"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "C-InApp-NL": {
       "title": "OneAccount-C-InApp-NL",
@@ -266,10 +266,10 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "In progress"
+          "value": "cancelled"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-Broadcast-DE": {
       "title": "OneAccount-B-M1-Broadcast-DE",
@@ -394,10 +394,10 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "In progress"
+          "value": "READY"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "C-HelpCentre-DE": {
       "title": "OneAccount-C-HelpCentre-DE",
@@ -430,14 +430,14 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "In progress"
+          "value": "READY"
         },
         {
           "label": "French status",
-          "value": "In progress"
+          "value": "READY"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-Email-NL": {
       "title": "OneAccount-B-M1-Email-NL",
@@ -526,14 +526,14 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "In progress"
+          "value": "LIVE"
         },
         {
           "label": "French status",
-          "value": "In progress"
+          "value": "LIVE"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "A-Push-DE": {
       "title": "OneAccount-A-Push-DE",
@@ -542,7 +542,7 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "ready"
+          "value": "cancelled"
         }
       ],
       "rollup": "Not started"
@@ -582,10 +582,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "READY"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M3-Email-BE": {
       "title": "OneAccount-B-M3-Email-BE",
@@ -754,10 +754,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "LIVE"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "A-Push-BE": {
       "title": "OneAccount-A-Push-BE",
@@ -766,14 +766,14 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "In progress"
+          "value": "CANCELLED"
         },
         {
           "label": "French status",
-          "value": "In progress"
+          "value": "CANCELLED"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-InApp-UK": {
       "title": "OneAccount-B-M1-InApp-UK",
@@ -818,10 +818,10 @@
       "statuses": [
         {
           "label": "French status",
-          "value": "In progress"
+          "value": "READY"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-Broadcast-UK": {
       "title": "OneAccount-B-M1-Broadcast-UK",
@@ -974,10 +974,10 @@
       "statuses": [
         {
           "label": "French status",
-          "value": "In progress"
+          "value": "LIVE"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M3-Push-UK": {
       "title": "OneAccount-B-M3-Push-UK",
@@ -1122,10 +1122,10 @@
       "statuses": [
         {
           "label": "Italian status",
-          "value": "In progress"
+          "value": "READY"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M2-Promocard-FR": {
       "title": "OneAccount-B-M2-Promocard-FR",
@@ -1146,10 +1146,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "cancelled"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-Promocard-IT": {
       "title": "OneAccount-B-M1-Promocard-IT",
@@ -1170,10 +1170,10 @@
       "statuses": [
         {
           "label": "Italian status",
-          "value": "In progress"
+          "value": "live"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M2-Email-UK": {
       "title": "OneAccount-B-M2-Email-UK",
@@ -1206,10 +1206,10 @@
       "statuses": [
         {
           "label": "French status",
-          "value": "In progress"
+          "value": "CANCELLED"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-Push-FR": {
       "title": "OneAccount-B-M1-Push-FR",
@@ -1338,10 +1338,10 @@
       "statuses": [
         {
           "label": "Italian status",
-          "value": "In progress"
+          "value": "cancelled"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "C-HelpCentre-IT": {
       "title": "OneAccount-C-HelpCentre-IT",
