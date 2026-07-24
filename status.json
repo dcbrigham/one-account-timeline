@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T07:30:52.789Z",
+  "generatedAt": "2026-07-24T07:29:17.582Z",
   "parentId": "3970269743",
   "pageCount": 116,
   "pages": {
@@ -182,10 +182,10 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "In progress"
+          "value": "Live"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Live"
     },
     "B-M3-InApp-DE": {
       "title": "OneAccount-B-M3-InApp-DE",
@@ -406,10 +406,10 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "In progress"
+          "value": "live"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "C-InApp-DE": {
       "title": "OneAccount-C-InApp-DE",
@@ -494,14 +494,14 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "In progress"
+          "value": "live"
         },
         {
           "label": "French status",
-          "value": "In progress"
+          "value": "live"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-InApp-BE": {
       "title": "OneAccount-B-M1-InApp-BE",
@@ -666,10 +666,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "live"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M1-Promocard-BE": {
       "title": "OneAccount-B-M1-Promocard-BE",
@@ -1038,10 +1038,10 @@
       "statuses": [
         {
           "label": "French status",
-          "value": "In progress"
+          "value": "live"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M3-Email-UK": {
       "title": "OneAccount-B-M3-Email-UK",
@@ -1350,10 +1350,10 @@
       "statuses": [
         {
           "label": "Italian status",
-          "value": "In progress"
+          "value": "live"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Not started"
     },
     "B-M2-Push2-DE": {
       "title": "OneAccount-B-M2-Push2-DE",
