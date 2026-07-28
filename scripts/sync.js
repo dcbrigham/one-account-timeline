@@ -30,6 +30,26 @@ const STATUS_RANK = {
   Live: 3,
 };
 
+// Canonical status names — Confluence lozenges may come back in any casing
+// (LIVE, live, Live, READY, cancelled, etc.). Normalize to the canonical form
+// before comparing against STATUS_RANK or "Cancelled" so the rollup does not
+// silently drop entries.
+const CANONICAL_STATUS = {
+  "not started": "Not started",
+  "in progress": "In progress",
+  ready: "Ready",
+  live: "Live",
+  cancelled: "Cancelled",
+  canceled: "Cancelled", // US spelling, just in case
+};
+
+function normalizeStatus(raw) {
+  if (typeof raw !== "string") return null;
+  const key = raw.trim().toLowerCase();
+  if (!key) return null;
+  return CANONICAL_STATUS[key] || raw.trim();
+}
+
 function required(name) {
   const v = process.env[name];
   if (!v) {
@@ -126,7 +146,7 @@ function statusOf(cell) {
     if (!Array.isArray(block.content)) continue;
     for (const inline of block.content) {
       if (inline.type === "status") {
-        return inline.attrs?.text || null;
+        return normalizeStatus(inline.attrs?.text) || null;
       }
     }
   }
