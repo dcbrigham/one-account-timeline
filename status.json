@@ -1,12 +1,24 @@
 {
-  "generatedAt": "2026-08-20T05:27:13.903Z",
+  "generatedAt": "2026-08-21T05:28:58.052Z",
   "parentId": "3970269743",
-  "pageCount": 116,
+  "pageCount": 124,
   "pages": {
     "B-M3-Promocard-NL": {
       "title": "OneAccount-B-M3-Promocard-NL",
       "pageId": "3971842387",
       "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/3971842387/OneAccount-B-M3-Promocard-NL",
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        }
+      ],
+      "rollup": "Not started"
+    },
+    "B-M2-SMS-NL": {
+      "title": "OneAccount-B-M2-SMS-NL",
+      "pageId": "4152426667",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4152426667/OneAccount-B-M2-SMS-NL",
       "statuses": [
         {
           "label": "Dutch status",
@@ -411,6 +423,18 @@
       ],
       "rollup": "Live"
     },
+    "B-M2-SMS-DE": {
+      "title": "OneAccount-B-M2-SMS-DE",
+      "pageId": "4152361178",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4152361178/OneAccount-B-M2-SMS-DE",
+      "statuses": [
+        {
+          "label": "German status",
+          "value": "Not started"
+        }
+      ],
+      "rollup": "Not started"
+    },
     "C-InApp-DE": {
       "title": "OneAccount-C-InApp-DE",
       "pageId": "3971809591",
@@ -735,6 +759,22 @@
       ],
       "rollup": "Not started"
     },
+    "B-M2-SMS-BE": {
+      "title": "OneAccount-B-M2-SMS-BE",
+      "pageId": "4151967969",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4151967969/OneAccount-B-M2-SMS-BE",
+      "statuses": [
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
+      "rollup": "Not started"
+    },
     "B-M1-Promocard-UK": {
       "title": "OneAccount-B-M1-Promocard-UK",
       "pageId": "3971711223",
@@ -742,10 +782,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "A-Email-UK": {
       "title": "OneAccount-A-Email-UK",
@@ -782,10 +822,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M1-Promocard-FR": {
       "title": "OneAccount-B-M1-Promocard-FR",
@@ -830,10 +870,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "C-InApp-BE": {
       "title": "OneAccount-C-InApp-BE",
@@ -967,6 +1007,18 @@
       ],
       "rollup": "Not started"
     },
+    "B-M1-Broadcast-FR": {
+      "title": "OneAccount-B-M1-Broadcast-FR",
+      "pageId": "4152623251",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4152623251/OneAccount-B-M1-Broadcast-FR",
+      "statuses": [
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
+      "rollup": "Not started"
+    },
     "A-Email-FR": {
       "title": "OneAccount-A-Email-FR",
       "pageId": "3971350529",
@@ -1015,6 +1067,18 @@
       ],
       "rollup": "Not started"
     },
+    "B-M2-SMS-UK": {
+      "title": "OneAccount-B-M2-SMS-UK",
+      "pageId": "4152066264",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4152066264/OneAccount-B-M2-SMS-UK",
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "In progress"
+        }
+      ],
+      "rollup": "In progress"
+    },
     "B-M2-InApp-BE": {
       "title": "OneAccount-B-M2-InApp-BE",
       "pageId": "3972202754",
@@ -1024,6 +1088,18 @@
           "label": "Dutch status",
           "value": "Not started"
         },
+        {
+          "label": "French status",
+          "value": "Not started"
+        }
+      ],
+      "rollup": "Not started"
+    },
+    "B-M2-SMS-FR": {
+      "title": "OneAccount-B-M2-SMS-FR",
+      "pageId": "4152164470",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4152164470/OneAccount-B-M2-SMS-FR",
+      "statuses": [
         {
           "label": "French status",
           "value": "Not started"
@@ -1086,10 +1162,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M2-Promocard-UK": {
       "title": "OneAccount-B-M2-Promocard-UK",
@@ -1110,10 +1186,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "A-InApp-IT": {
       "title": "OneAccount-A-InApp-IT",
@@ -1175,6 +1251,18 @@
       ],
       "rollup": "Live"
     },
+    "B-M2-SMS-IT": {
+      "title": "OneAccount-B-M2-SMS-IT",
+      "pageId": "4151869602",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4151869602/OneAccount-B-M2-SMS-IT",
+      "statuses": [
+        {
+          "label": "Italian status",
+          "value": "Not started"
+        }
+      ],
+      "rollup": "Not started"
+    },
     "B-M2-Email-UK": {
       "title": "OneAccount-B-M2-Email-UK",
       "pageId": "3972333749",
@@ -1218,6 +1306,18 @@
       "statuses": [
         {
           "label": "French status",
+          "value": "Not started"
+        }
+      ],
+      "rollup": "Not started"
+    },
+    "B-M1-Broadcast-IT": {
+      "title": "OneAccount-B-M1-Broadcast-IT",
+      "pageId": "4152557758",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4152557758/OneAccount-B-M1-Broadcast-IT",
+      "statuses": [
+        {
+          "label": "Italian status",
           "value": "Not started"
         }
       ],
