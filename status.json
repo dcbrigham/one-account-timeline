@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-23T09:43:10.372Z",
+  "generatedAt": "2026-09-24T09:42:05.640Z",
   "parentId": "3970269743",
-  "pageCount": 124,
+  "pageCount": 125,
   "pages": {
     "B-M3-Promocard-NL": {
       "title": "OneAccount-B-M3-Promocard-NL",
@@ -1462,6 +1462,34 @@
       "statuses": [
         {
           "label": "German status",
+          "value": "Not started"
+        }
+      ],
+      "rollup": "Not started"
+    },
+    "A-Email-HeadsUp": {
+      "title": "OneAccount-A-Email-HeadsUp",
+      "pageId": "4231529110",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4231529110/OneAccount-A-Email-HeadsUp",
+      "statuses": [
+        {
+          "label": "English status",
+          "value": "In progress"
+        },
+        {
+          "label": "Dutch status",
+          "value": "Not started"
+        },
+        {
+          "label": "German status",
+          "value": "Not started"
+        },
+        {
+          "label": "French status",
+          "value": "Not started"
+        },
+        {
+          "label": "Italian status",
           "value": "Not started"
         }
       ],
