@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-06T11:45:49.227Z",
+  "generatedAt": "2026-10-07T11:30:50.711Z",
   "parentId": "3970269743",
-  "pageCount": 125,
+  "pageCount": 131,
   "pages": {
     "B-M3-Promocard-NL": {
       "title": "OneAccount-B-M3-Promocard-NL",
@@ -110,10 +110,10 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "A-Email-DE": {
       "title": "OneAccount-A-Email-DE",
@@ -158,10 +158,10 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M1-InApp-DE": {
       "title": "OneAccount-B-M1-InApp-DE",
@@ -230,10 +230,10 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M3-Push-NL": {
       "title": "OneAccount-B-M3-Push-NL",
@@ -257,6 +257,13 @@
           "value": "Not started"
         }
       ],
+      "rollup": "Not started"
+    },
+    "B-M1-Review-IT": {
+      "title": "OneAccount-B-M1-Review-IT",
+      "pageId": "4264854196",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4264854196/OneAccount-B-M1-Review-IT",
+      "statuses": [],
       "rollup": "Not started"
     },
     "B-M3-Email-DE": {
@@ -290,10 +297,10 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M3-Promocard-DE": {
       "title": "OneAccount-B-M3-Promocard-DE",
@@ -390,13 +397,20 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         },
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
+      "rollup": "In progress"
+    },
+    "B-M1-Review-NL": {
+      "title": "OneAccount-B-M1-Review-NL",
+      "pageId": "4264329895",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4264329895/OneAccount-B-M1-Review-NL",
+      "statuses": [],
       "rollup": "Not started"
     },
     "A-InApp-DE": {
@@ -470,10 +484,10 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M2-Email-NL": {
       "title": "OneAccount-B-M2-Email-NL",
@@ -506,10 +520,10 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "C-HelpCentre-BE": {
       "title": "OneAccount-C-HelpCentre-BE",
@@ -571,6 +585,13 @@
       ],
       "rollup": "Cancelled"
     },
+    "B-M1-Review-BE-NL": {
+      "title": "OneAccount-B-M1-Review-BE-NL",
+      "pageId": "4265607399",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4265607399/OneAccount-B-M1-Review-BE-NL",
+      "statuses": [],
+      "rollup": "Not started"
+    },
     "B-M1-Promocard-DE": {
       "title": "OneAccount-B-M1-Promocard-DE",
       "pageId": "3972333717",
@@ -578,10 +599,10 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M3-InApp-BE": {
       "title": "OneAccount-B-M3-InApp-BE",
@@ -702,14 +723,14 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         },
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M2-Promocard-BE": {
       "title": "OneAccount-B-M2-Promocard-BE",
@@ -734,14 +755,14 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         },
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M3-Promocard-BE": {
       "title": "OneAccount-B-M3-Promocard-BE",
@@ -782,10 +803,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "Ready"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Ready"
     },
     "A-Email-UK": {
       "title": "OneAccount-A-Email-UK",
@@ -834,10 +855,10 @@
       "statuses": [
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M2-Push1-UK": {
       "title": "OneAccount-B-M2-Push1-UK",
@@ -870,10 +891,17 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "Ready"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Ready"
+    },
+    "B-M1-Review-BE-FR": {
+      "title": "OneAccount-B-M1-Review-BE-FR",
+      "pageId": "4264854234",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4264854234/OneAccount-B-M1-Review-BE-FR",
+      "statuses": [],
+      "rollup": "Not started"
     },
     "C-InApp-BE": {
       "title": "OneAccount-C-InApp-BE",
@@ -903,6 +931,13 @@
       ],
       "rollup": "Not started"
     },
+    "B-M1-Review-FR": {
+      "title": "OneAccount-B-M1-Review-FR",
+      "pageId": "4265607430",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4265607430/OneAccount-B-M1-Review-FR",
+      "statuses": [],
+      "rollup": "Not started"
+    },
     "B-M2-Push1-FR": {
       "title": "OneAccount-B-M2-Push1-FR",
       "pageId": "3972169870",
@@ -922,10 +957,10 @@
       "statuses": [
         {
           "label": "German status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M3-InApp-FR": {
       "title": "OneAccount-B-M3-InApp-FR",
@@ -967,6 +1002,13 @@
       ],
       "rollup": "Not started"
     },
+    "B-M1-Review-DE": {
+      "title": "OneAccount-B-M1-Review-DE",
+      "pageId": "4264329928",
+      "url": "https://doctolib.atlassian.net/wiki/spaces/PTA/pages/4264329928/OneAccount-B-M1-Review-DE",
+      "statuses": [],
+      "rollup": "Not started"
+    },
     "B-M1-InApp-FR": {
       "title": "OneAccount-B-M1-InApp-FR",
       "pageId": "3972038760",
@@ -998,14 +1040,14 @@
       "statuses": [
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         },
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M1-Broadcast-FR": {
       "title": "OneAccount-B-M1-Broadcast-FR",
@@ -1014,10 +1056,10 @@
       "statuses": [
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "A-Email-FR": {
       "title": "OneAccount-A-Email-FR",
@@ -1162,10 +1204,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "Ready"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Ready"
     },
     "B-M2-Promocard-UK": {
       "title": "OneAccount-B-M2-Promocard-UK",
@@ -1186,10 +1228,10 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "Ready"
         }
       ],
-      "rollup": "In progress"
+      "rollup": "Ready"
     },
     "A-InApp-IT": {
       "title": "OneAccount-A-InApp-IT",
@@ -1234,10 +1276,10 @@
       "statuses": [
         {
           "label": "Italian status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "A-Email-IT": {
       "title": "OneAccount-A-Email-IT",
@@ -1306,10 +1348,10 @@
       "statuses": [
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M1-Broadcast-IT": {
       "title": "OneAccount-B-M1-Broadcast-IT",
@@ -1318,10 +1360,10 @@
       "statuses": [
         {
           "label": "Italian status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M3-Promocard-FR": {
       "title": "OneAccount-B-M3-Promocard-FR",
@@ -1342,10 +1384,10 @@
       "statuses": [
         {
           "label": "Italian status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M3-Push-FR": {
       "title": "OneAccount-B-M3-Push-FR",
@@ -1474,26 +1516,26 @@
       "statuses": [
         {
           "label": "English status",
-          "value": "In progress"
+          "value": "Ready"
         },
         {
           "label": "Dutch status",
-          "value": "Not started"
+          "value": "In progress"
         },
         {
           "label": "German status",
-          "value": "Not started"
+          "value": "In progress"
         },
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         },
         {
           "label": "Italian status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M1-Email-FR": {
       "title": "OneAccount-B-M1-Email-FR",
@@ -1502,10 +1544,10 @@
       "statuses": [
         {
           "label": "French status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M2-Push2-BE": {
       "title": "OneAccount-B-M2-Push2-BE",
@@ -1554,10 +1596,10 @@
       "statuses": [
         {
           "label": "Italian status",
-          "value": "Not started"
+          "value": "In progress"
         }
       ],
-      "rollup": "Not started"
+      "rollup": "In progress"
     },
     "B-M2-Email-IT": {
       "title": "OneAccount-B-M2-Email-IT",
